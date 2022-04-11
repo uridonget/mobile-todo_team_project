@@ -23,6 +23,7 @@
     <v-main>
       <TodoHeader />
       <TodoInput v-on:addTodo="addTodo"></TodoInput>
+      
       <TodoList
         v-bind:propsdata="todoItems"
         @removeTodo="removeTodo"
@@ -53,20 +54,24 @@ export default {
   data() {
     return {
       todoItems: [],
+    
     };
   },
   methods: {
     clearAll() {
       localStorage.clear();
       this.todoItems = [];
+    
     },
     addTodo(todoItem) {
-      localStorage.setItem(todoItem, todoItem);
+      localStorage.setItem(todoItem.title, todoItem);
       this.todoItems.push(todoItem);
     },
+    
     removeTodo(todoItem, index) {
       localStorage.removeItem(todoItem);
       this.todoItems.splice(index, 1);
+      
     },
   },
   created() {

@@ -1,28 +1,53 @@
 <template>
   <v-container>
-    <transition-group class="pl-0" name="list" tag="ul">
-      <v-card class="mb-2 " v-for="(todoItem, index) in propsdata" :key="todoItem">
-        <v-card-actions>
-          <v-list-item>
-            <v-list-item-avatar>
-              <v-icon class="grey lighten-1" dark> mdi-check </v-icon>
-            </v-list-item-avatar>
 
-            <v-list-item-content>
-              <v-list-item-title v-text="todoItem"></v-list-item-title>
-            </v-list-item-content>
 
-            <v-list-item-action @click="removeTodo(todoItem, index)">
-              <v-btn icon>
-                <v-icon>mdi-close</v-icon>
-              </v-btn>
-            </v-list-item-action>
-          </v-list-item>
-        </v-card-actions>
-      </v-card>
-    </transition-group>
+    <v-card>
+      <v-expansion-panels>
+        <v-expansion-panel v-for="(todoItem) in propsdata" :key="todoItem">
+          <v-expansion-panel-header>
+            <v-card>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title v-text="todoItem.title"></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-card>
+          </v-expansion-panel-header>
+
+          <v-expansion-panel-content>
+            
+              <v-textarea
+                v-model="todoItem.detail"
+                label="Detail"
+              ></v-textarea>
+
+              {{ todoItem }}
+              
+              {{ typeof(todoItem.date) }}
+            
+            
+
+            <v-col class="text-right">  
+              <v-list-item-action @click="removeTodo(todoItem, index)">
+                <v-btn icon>
+                  <v-icon>mdi-close</v-icon>
+                </v-btn>
+              </v-list-item-action>
+            </v-col>
+
+          </v-expansion-panel-content>
+
+        </v-expansion-panel>
+  </v-expansion-panels>
+    </v-card>
+
+
   </v-container>
+
 </template>
+
+
 
 <script>
 export default {
