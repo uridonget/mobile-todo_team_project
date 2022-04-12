@@ -1,50 +1,46 @@
 <template>
   <v-container>
+    <v-row class="blue">
+      <v-col>
+        <v-expansion-panels>
+          <v-expansion-panel v-for="(todoItem) in propsdata" :key="todoItem">
+            <v-expansion-panel-header class="green">
+              <v-row>
+                <v-col>
+                  <v-card class="red">
+                    <v-list-item>
+                      <v-list-item-content>
+                        <v-list-item-title v-text="todoItem.title"></v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-card>
+                </v-col>
+                <v-col>
+                  <v-card>
+                    <h2>ㅎㅇㅎㅇ</h2>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+                <v-textarea
+                  v-model="todoItem.detail"
+                  label="Detail"
+                ></v-textarea>
 
+                Due Date : {{ todoItem.date }}
 
-    <v-card>
-      <v-expansion-panels>
-        <v-expansion-panel v-for="(todoItem) in propsdata" :key="todoItem">
-          <v-expansion-panel-header>
-            <v-card>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title v-text="todoItem.title"></v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-card>
-          </v-expansion-panel-header>
-
-          <v-expansion-panel-content>
-            
-              <v-textarea
-                v-model="todoItem.detail"
-                label="Detail"
-              ></v-textarea>
-
-              {{ todoItem }}
-              
-              {{ typeof(todoItem.date) }}
-            
-            
-
-            <v-col class="text-right">  
-              <v-list-item-action @click="removeTodo(todoItem, index)">
-                <v-btn icon>
-                  <v-icon>mdi-close</v-icon>
-                </v-btn>
-              </v-list-item-action>
-            </v-col>
-
-          </v-expansion-panel-content>
-
-        </v-expansion-panel>
-  </v-expansion-panels>
-    </v-card>
-
-
+                <v-list-item-action @click="removeTodo(todoItem, index)">
+                  <v-btn icon>
+                    <v-icon>mdi-close</v-icon>
+                  </v-btn>
+                </v-list-item-action>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-col>
+    </v-row>
   </v-container>
-
 </template>
 
 

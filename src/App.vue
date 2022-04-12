@@ -29,6 +29,7 @@
         @removeTodo="removeTodo"
       ></TodoList>
     </v-main>
+    {{ todoItems }}
     <v-footer color="primary">
       <TodoFooter v-on:removeAll="clearAll" />
     </v-footer>
