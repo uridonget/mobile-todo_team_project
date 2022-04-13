@@ -42,6 +42,7 @@ import TodoHeader from "./components/TodoHeader.vue";
 import TodoList from "./components/TodoList.vue";
 import TodoInput from "./components/TodoInput.vue";
 
+
 export default {
   name: "App",
 
@@ -55,6 +56,7 @@ export default {
   data() {
     return {
       todoItems: [],
+      
     
     };
   },
@@ -72,8 +74,12 @@ export default {
     removeTodo(todoItem, index) {
       localStorage.removeItem(todoItem);
       this.todoItems.splice(index, 1);
-      
     },
+
+    statusChange(){
+      this.list[0] = this.list[0].toUpperCase();
+    },
+
   },
   created() {
     if (localStorage.length > 0) {
@@ -86,16 +92,16 @@ export default {
 </script>
 
 <style>
-body {
+/* body {
   text-align: center;
   background-color: #f6f6f8;
-}
-input {
+} */
+/* input {
   border-style: groove;
   width: 200px;
-}
-.shadow {
+} */
+/* .shadow {
   box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.03);
-}
+} */
 </style>
 

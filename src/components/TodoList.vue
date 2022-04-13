@@ -1,24 +1,31 @@
 <template>
   <v-container>
-    <v-row class="blue">
+    <v-row>
       <v-col>
         <v-expansion-panels>
           <v-expansion-panel v-for="(todoItem) in propsdata" :key="todoItem">
-            <v-expansion-panel-header class="green">
+            <v-expansion-panel-header>
               <v-row>
                 <v-col>
-                  <v-card class="red">
-                    <v-list-item>
+                  <v-card height="70">
+                    <h2>D-DAY</h2>
+                  </v-card>
+                </v-col>
+                <v-col cols="6">
+                  <v-card>
+                    <!-- <v-list-item>
                       <v-list-item-content>
                         <v-list-item-title v-text="todoItem.title"></v-list-item-title>
                       </v-list-item-content>
-                    </v-list-item>
+                    </v-list-item> -->
+                    <v-text-field
+                    v-model="todoItem.title"></v-text-field>
                   </v-card>
                 </v-col>
                 <v-col>
-                  <v-card>
-                    <h2>ㅎㅇㅎㅇ</h2>
-                  </v-card>
+                    <v-btn height="70">
+                      {{ todoItem.status }}
+                    </v-btn>
                 </v-col>
               </v-row>
             </v-expansion-panel-header>
@@ -57,13 +64,13 @@ export default {
 </script>
 
 <style scoped>
-ul {
+/* ul {
   list-style-type: none;
   padding-left: 0px;
   margin-top: 0;
   text-align: left;
-}
-li {
+} */
+/* li {
   display: flex;
   min-height: 50px;
   height: 50px;
@@ -72,13 +79,13 @@ li {
   padding: 0 0.9rem;
   background: white;
   border-radius: 5px;
-}
-.checkBtn {
+} */
+/* .checkBtn {
   line-height: 45px;
   color: #62acde;
   margin-right: 5px;
-}
-.removeBtn {
+} */
+/* .removeBtn {
   margin-left: auto;
   color: #de4343;
 }
@@ -91,5 +98,5 @@ li {
 .list-leave-to {
   opacity: 0;
   transform: translateY(30px);
-}
+} */
 </style>

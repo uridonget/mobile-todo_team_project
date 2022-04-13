@@ -1,18 +1,18 @@
 <template>
   <v-container>
-    <v-row class="red">
+    <v-row>
       <v-col>
         <v-text-field
         label="Title"
         outlined
         v-model="newTodoItem"
-        class="blue"
+        
         height="20">
         </v-text-field>
       </v-col>
     </v-row>
 
-    <v-row class="green">
+    <v-row>
       <v-col>
         
           <v-menu
@@ -32,7 +32,7 @@
               <v-text-field
                 v-model="newDate"
                 label="Due Date"
-                rounded
+                outlined
                 v-on="on"
               ></v-text-field>
             </template>
@@ -46,10 +46,10 @@
     </v-row>
 
     <!--  -->
-    <v-row class="blue">
+    <v-row>
       <v-col>
         <v-textarea
-        class="red"
+        
         label="자세한 정보를 입력하세요"
         outlined
         v-model="newTodoItemDetail"
@@ -58,18 +58,28 @@
       </v-col>
     </v-row>
 
-    <v-row class="pink">
+    <v-row>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
-      <v-spacer></v-spacer>
+      <v-col
+      cols="3">
+        <v-select
+        :items="statusList"
+        label="현재 상태"
+        v-model="newStatus"
+        >등록</v-select>
+      </v-col>
+
       <v-col>
         <v-btn class="mr-4" @click="addTodo">등록</v-btn>
       </v-col>
     </v-row>
+    <v-divider></v-divider>
+
 
 
       
@@ -101,15 +111,19 @@ export default {
       newDate: '',
       showModal: false,
       today : Date(),
+      statusList : ['할 일', '진행 중', '완료'],
+      newStatus: '',
+      
     }
   },
   methods: {
     addTodo() {
       if (this.newTodoItem !== "") {
-        var value_str = JSON.stringify({title: this.newTodoItem, detail: this.newTodoItemDetail, date: this.newDate});
-        
+        // const value = JSON.parse({title: this.newTodoItem, detail: this.newTodoItemDetail, date: this.newDate})
+        var value_str = JSON.stringify({title: this.newTodoItem, detail: this.newTodoItemDetail, date: this.newDate, status: this.newStatus});
         const value = JSON.parse(value_str);
-        
+        // const value = value_str;
+                
 				this.$emit('addTodo', value);
         this.clearInput();
       } else {
