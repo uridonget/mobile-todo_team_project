@@ -1,26 +1,37 @@
 <template>
   <v-container>
-    <transition-group class="pl-0" name="list" tag="ul">
-      <v-card class="mb-2 " v-for="(todoItem, index) in propsdata" :key="todoItem">
-        <v-card-actions>
-          <v-list-item>
-            <v-list-item-avatar>
-              <v-icon class="grey lighten-1" dark> mdi-check </v-icon>
-            </v-list-item-avatar>
-
-            <v-list-item-content>
-              <v-list-item-title v-text="todoItem"></v-list-item-title>
-            </v-list-item-content>
-
-            <v-list-item-action @click="removeTodo(todoItem, index)">
-              <v-btn icon>
-                <v-icon>mdi-close</v-icon>
+    <v-expansion-panels v-for="(todoItem, index) in propsdata" :key="todoItem">
+      <v-expansion-panel>
+        <v-expansion-panel-header>
+          <v-row>
+            <v-col>
+ 
+            </v-col>
+            <v-col>
+              <v-card-text>
+                {{ todoItem.title }}
+              </v-card-text>
+            </v-col>
+            <v-col>
+              <v-btn @click="$emit('changeStatus', index)">
+                {{ todoItem.status }}
               </v-btn>
-            </v-list-item-action>
-          </v-list-item>
-        </v-card-actions>
-      </v-card>
-    </transition-group>
+            </v-col>
+          </v-row>
+
+        </v-expansion-panel-header>
+
+        <v-expansion-panel-content>
+            <v-textarea
+            height="50"
+            outlined
+            v-model="todoItem.detail"
+            ></v-textarea>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
+    {{ propsdata }}
+
   </v-container>
 </template>
 
@@ -32,7 +43,21 @@ export default {
       this.$emit("removeTodo", todoItem, index);
     },
   },
+
+  data() {
+    
+    return {
+    statuses: ["to-do", "in-progress", "finished"],
+    
+    }
+  
+  
+  
+},
+
 };
+
+
 </script>
 
 <style scoped>

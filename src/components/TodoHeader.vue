@@ -1,7 +1,7 @@
 <template>
 <v-container>
   <v-row justify="center">  
-    <h1>TODO it!</h1>  
+    <h3>TODO it!</h3>  
   </v-row>
 </v-container>
 </template>

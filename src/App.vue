@@ -26,9 +26,11 @@
       <TodoList
         v-bind:propsdata="todoItems"
         @removeTodo="removeTodo"
+        @changeStatus="changeStatus"
       ></TodoList>
     </v-main>
     <v-footer color="primary">
+      {{ todoItems }}
       <TodoFooter v-on:removeAll="clearAll" />
     </v-footer>
   </v-app>
@@ -53,21 +55,45 @@ export default {
   data() {
     return {
       todoItems: [],
+      statuses: ["할 일", "진행 중", "완료"],
+      
+      
+      
     };
   },
   methods: {
+
     clearAll() {
       localStorage.clear();
       this.todoItems = [];
     },
-    addTodo(todoItem) {
-      localStorage.setItem(todoItem, todoItem);
-      this.todoItems.push(todoItem);
+    addTodo(todoItem, todoItemDetail) {
+      // localStorage.setItem(todoItem, todoItem);
+      this.todoItems.push({
+        title: todoItem,
+        detail: todoItemDetail,
+        status: "할 일",
+        
+
+        
+         
+      });
+      
+      // console.log(this.todoItems);
+      // console.log(typeof(this.todoItems))
     },
+
     removeTodo(todoItem, index) {
       localStorage.removeItem(todoItem);
       this.todoItems.splice(index, 1);
     },
+
+    changeStatus(index) {
+      let newIndex = this.statuses.indexOf(this.todoItems[index].status);
+      if (++newIndex > 2) newIndex = 0;
+      this.todoItems[index].status = this.statuses[newIndex];
+    },
+
   },
   created() {
     if (localStorage.length > 0) {

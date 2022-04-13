@@ -1,9 +1,78 @@
 <template>
-  <div class="inputBox shadow">
-    <input type="text" v-model="newTodoItem" placeholder="Type what you have to do" v-on:keyup.enter="addTodo">
-    <span class="addContainer" v-on:click="addTodo">
-      <i class="addBtn fas fa-plus" aria-hidden="true"></i>
-    </span>
+
+  <v-container>
+
+    <v-text-field 
+    v-model="newTodoItem" 
+    placeholder="Type what you have to do" 
+    v-on:keyup.enter="addTodo"
+    ></v-text-field>
+
+          <v-menu
+        ref="menu"
+        v-model="menu"
+        :close-on-content-click="false"
+        :return-value.sync="date"
+        transition="scale-transition"
+        offset-y
+        min-width="auto"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-text-field
+            v-model="newDate"
+            label="Picker in menu"
+            prepend-icon="mdi-calendar"
+            readonly
+            v-bind="attrs"
+            v-on="on"
+          ></v-text-field>
+        </template>
+        <v-date-picker
+          v-model="newDate"
+          no-title
+          scrollable
+        >
+          <v-spacer></v-spacer>
+          <v-btn
+            text
+            color="primary"
+            @click="menu = false"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            text
+            color="primary"
+            @click="$refs.menu.save(date)"
+          >
+            OK
+          </v-btn>
+        </v-date-picker>
+      </v-menu>
+
+    
+
+    <v-textarea 
+    v-model="newTodoItemDetail" 
+    placeholder="Type Detailed Notation" 
+    v-on:keyup.enter="addTodo"
+    outlined
+    height="60"
+    ></v-textarea>
+
+    
+
+    <v-row>
+      <v-col
+      cols="9"
+      ></v-col>
+
+      <v-col>
+        <v-btn @click="addTodo">
+          등록
+        </v-btn>
+      </v-col>
+    </v-row>
 
     <modal v-if="showModal" @close="showModal = false">
       <h3 slot="header">경고</h3>
@@ -11,7 +80,10 @@
         <i class="closeModalBtn fas fa-times" aria-hidden="true"></i>
       </span>
     </modal>
-  </div>
+
+  </v-container>
+  
+  
 </template>
 
 <script>
@@ -21,21 +93,27 @@ export default {
   data() {
     return {
       newTodoItem: '',
+      newTodoItemDetail: '',
+      newDate: '',
       showModal: false
     }
   },
   methods: {
     addTodo() {
       if (this.newTodoItem !== "") {
-        var value = this.newTodoItem && this.newTodoItem.trim();
-				this.$emit('addTodo', value)
+				this.$emit('addTodo', this.newTodoItem, this.newTodoItemDetail, this.newDate)
         this.clearInput();
+
+        // console.log(typeof(this.newTodoItem))
+        // console.log(typeof(this.newTodoItemDetail))
+
       } else {
         this.showModal = !this.showModal;
       }
     },
     clearInput() {
       this.newTodoItem = '';
+      this.newTodoItemDetail = '';
     }
   },
   components: {
