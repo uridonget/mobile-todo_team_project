@@ -98,10 +98,13 @@ export default {
       showModal: false
     }
   },
+
+  
   methods: {
     addTodo() {
       if (this.newTodoItem !== "") {
-				this.$emit('addTodo', this.newTodoItem, this.newTodoItemDetail, this.newDate)
+        const value = {title: this.newTodoItem, detail: this.newTodoItemDetail, date: this.newDate, status: "할 일"};
+				this.$emit('addTodo', value)
         this.clearInput();
 
         // console.log(typeof(this.newTodoItem))
@@ -114,6 +117,7 @@ export default {
     clearInput() {
       this.newTodoItem = '';
       this.newTodoItemDetail = '';
+      this.newDate = '';
     }
   },
   components: {

@@ -67,20 +67,9 @@ export default {
       localStorage.clear();
       this.todoItems = [];
     },
-    addTodo(todoItem, todoItemDetail) {
-      // localStorage.setItem(todoItem, todoItem);
-      this.todoItems.push({
-        title: todoItem,
-        detail: todoItemDetail,
-        status: "할 일",
-        
-
-        
-         
-      });
-      
-      // console.log(this.todoItems);
-      // console.log(typeof(this.todoItems))
+    addTodo(todoItem) {
+      localStorage.setItem(todoItem.title, JSON.stringify(todoItem));
+      this.todoItems.push(todoItem);
     },
 
     removeTodo(todoItem, index) {
@@ -98,7 +87,7 @@ export default {
   created() {
     if (localStorage.length > 0) {
       for (var i = 0; i < localStorage.length; i++) {
-        this.todoItems.push(localStorage.key(i));
+        this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
       }
     }
   },
