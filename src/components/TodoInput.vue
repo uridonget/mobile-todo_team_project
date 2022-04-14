@@ -20,7 +20,7 @@
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
             v-model="newDate"
-            label="Picker in menu"
+            label="Pick your D-DAY"
             prepend-icon="mdi-calendar"
             readonly
             v-bind="attrs"

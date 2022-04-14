@@ -30,7 +30,7 @@
       ></TodoList>
     </v-main>
     <v-footer color="primary">
-      {{ todoItems }}
+      <!-- {{ todoItems }} -->
       <TodoFooter v-on:removeAll="clearAll" />
     </v-footer>
   </v-app>

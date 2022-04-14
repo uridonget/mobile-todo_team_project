@@ -5,12 +5,13 @@
         <v-expansion-panel-header>
           <v-row>
             <v-col>
- 
+              {{ todoItem.date }}
             </v-col>
             <v-col>
-              <v-card-text>
+              <v-text-field
+              v-model="todoItem.title">
                 {{ todoItem.title }}
-              </v-card-text>
+              </v-text-field>
             </v-col>
             <v-col>
               <v-btn @click="$emit('changeStatus', index)">
@@ -30,7 +31,7 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
-    {{ propsdata }}
+    <!-- {{ propsdata }} -->
 
   </v-container>
 </template>
