@@ -26,11 +26,13 @@
       <TodoList
         v-bind:propsdata="todoItems"
         @removeTodo="removeTodo"
-        @changeStatus="changeStatus"
+        @changeStatus="changeStatus"  
       ></TodoList>
     </v-main>
     <v-footer color="primary">
-      <!-- {{ todoItems }} -->
+      <!-- {{ todoItems }}
+      {{ typeof(todoItems)}} -->
+      
       <TodoFooter v-on:removeAll="clearAll" />
     </v-footer>
   </v-app>
@@ -73,7 +75,7 @@ export default {
     },
 
     removeTodo(todoItem, index) {
-      localStorage.removeItem(todoItem);
+      localStorage.removeItem(todoItem.title);
       this.todoItems.splice(index, 1);
     },
 

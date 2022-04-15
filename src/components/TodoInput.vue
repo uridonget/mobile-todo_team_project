@@ -6,6 +6,7 @@
     v-model="newTodoItem" 
     placeholder="Type what you have to do" 
     v-on:keyup.enter="addTodo"
+    hide-details=""
     ></v-text-field>
 
           <v-menu
@@ -58,6 +59,7 @@
     v-on:keyup.enter="addTodo"
     outlined
     height="60"
+    hide-details=""
     ></v-textarea>
 
     
@@ -67,13 +69,14 @@
       cols="9"
       ></v-col>
 
-      <v-col>
-        <v-btn @click="addTodo">
+      <v-col class="pt-5">
+        <v-btn 
+        @click="addTodo">
           등록
         </v-btn>
       </v-col>
     </v-row>
-
+    
     <modal v-if="showModal" @close="showModal = false">
       <h3 slot="header">경고</h3>
       <span slot="footer" @click="showModal = false">할 일을 입력하세요.
@@ -106,9 +109,6 @@ export default {
         const value = {title: this.newTodoItem, detail: this.newTodoItemDetail, date: this.newDate, status: "할 일"};
 				this.$emit('addTodo', value)
         this.clearInput();
-
-        // console.log(typeof(this.newTodoItem))
-        // console.log(typeof(this.newTodoItemDetail))
 
       } else {
         this.showModal = !this.showModal;

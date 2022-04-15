@@ -23,18 +23,34 @@
         </v-expansion-panel-header>
 
         <v-expansion-panel-content>
+          <v-row>
             <v-textarea
             height="50"
             outlined
             v-model="todoItem.detail"
             ></v-textarea>
+          </v-row>
+          
+          <v-row justify="center">
+            <v-col cols="auto">
+              <v-btn>수정</v-btn>
+            </v-col>
+            <v-spacer></v-spacer>
+            <v-col cols="auto">
+              <v-btn @click="removeTodo(todoItem, index)">
+                삭제
+              </v-btn>
+            </v-col>
+          </v-row>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
-    <!-- {{ propsdata }} -->
+
+
 
   </v-container>
 </template>
+
 
 <script>
 export default {
