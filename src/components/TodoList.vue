@@ -1,11 +1,47 @@
 <template>
   <v-container>
-    <v-expansion-panels v-for="(todoItem, index) in propsdata" :key="todoItem">
-      <v-expansion-panel>
+
+    <v-row>
+        <v-bottom-navigation
+          :value="filter"
+          color="primary"
+        >
+        
+
+        <v-col>
+          <v-btn @click="getClickedAll">
+            <span>모두</span>
+          </v-btn>
+        </v-col>
+        <v-col>
+          <v-btn @click="getClickedTodo">
+            <span>할 일</span>
+          </v-btn>
+        </v-col>
+        <v-col>
+          <v-btn @click="getClickedOngoing">
+            <span>진행 중</span>
+          </v-btn>
+        </v-col>
+        <v-col>
+          <v-btn @click="getClickedEnd">
+            <span>완료</span>
+          </v-btn>
+        </v-col>
+        </v-bottom-navigation>
+    </v-row>
+
+    
+    <v-expansion-panels 
+    v-for="(todoItem, index) in propsdata" :key="todoItem" 
+    class="mt-5">
+      <v-expansion-panel  
+      v-if="todoItem.status === showStatus || showStatus === '모두'"
+      >
+      
         <v-expansion-panel-header>
-          <v-row>
             <v-col>
-              {{ todoItem.date }}
+              Due : {{ todoItem.date }}
             </v-col>
             <v-col>
               <v-text-field
@@ -18,7 +54,6 @@
                 {{ todoItem.status }}
               </v-btn>
             </v-col>
-          </v-row>
 
         </v-expansion-panel-header>
 
@@ -67,17 +102,31 @@ export default {
     editTodo(todoItem, index) {
       this.$emit("editTodo", todoItem, index);
     },
+
+    getClickedAll(){
+      this.showStatus = "모두"
+    },
+    getClickedTodo(){
+      this.showStatus = "할 일";
+    },
+    getClickedOngoing(){
+      this.showStatus = "진행 중";
+    },
+    getClickedEnd(){
+      this.showStatus = "완료";
+    },
+
+
   },
 
   data() {
     
     return {
-    statuses: ["to-do", "in-progress", "finished"],
+      statuses: ["to-do", "in-progress", "finished"],
+      showStatus: "모두",
     
     }
-  
-  
-  
+ 
 },
 
 };
