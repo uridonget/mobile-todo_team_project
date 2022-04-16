@@ -33,7 +33,9 @@
           
           <v-row justify="center">
             <v-col cols="auto">
-              <v-btn>수정</v-btn>
+              <v-btn @click="editTodo(todoItem, index)">
+                수정
+              </v-btn>
             </v-col>
             <v-spacer></v-spacer>
             <v-col cols="auto">
@@ -41,6 +43,9 @@
                 삭제
               </v-btn>
             </v-col>
+          </v-row>
+          <v-row>
+            index: {{ index }}
           </v-row>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -58,6 +63,9 @@ export default {
   methods: {
     removeTodo(todoItem, index) {
       this.$emit("removeTodo", todoItem, index);
+    },
+    editTodo(todoItem, index) {
+      this.$emit("editTodo", todoItem, index);
     },
   },
 
