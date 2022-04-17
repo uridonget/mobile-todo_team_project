@@ -80,7 +80,7 @@
             </v-col>
           </v-row>
           <v-row>
-            index: {{ index }}
+            <!-- index: {{ index }} -->
           </v-row>
         </v-expansion-panel-content>
       </v-expansion-panel>
