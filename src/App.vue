@@ -31,23 +31,37 @@
     </v-navigation-drawer>
 
     <v-app-bar
-      fixed
+      app
       color="green"
       dark
       hide-on-scroll
       prominent
-      scroll-target="#scrolling-techniques"
-      height="90"
+      scroll-target="#scrolling-techniques-4"
+      height="120"
     >
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-col>
+      <v-row>
+        <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Title </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-text-field
+          @blur="searchClosed = true"
+          @focus="searchClosed = false"
+          v-model="search"
+          placeholder="Search"
+          filled
+          dense
+          clearable
+          prepend-inner-icon="mdi-magnify"
+          class="expanding-search mt-1"
+          :class="{ closed: searchClosed && !search }"
+        ></v-text-field>
+      </v-row>
 
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
+      <v-row>
+        <v-toolbar-title>Title </v-toolbar-title>
+      </v-row>
+    </v-col>
     </v-app-bar>
 
     <v-main>
@@ -86,6 +100,8 @@ export default {
   },
 
   data: () => ({
+    searchClosed: true,
+    search: null,
     drawer: null,
     todoItems: [],
     statuses: ["할 일", "진행 중", "완료"],
@@ -138,17 +154,21 @@ export default {
 };
 </script>
 
-<style>
-body {
-  text-align: center;
-  background-color: #f6f6f8;
-}
-input {
-  border-style: groove;
-  width: 200px;
-}
-.shadow {
-  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.03);
-}
+<style lang='sass'>
+.v-input.expanding-search
+  transition: max-width 0.2s
+
+  .v-input__slot
+    cursor: pointer !important
+    &:before, &:after
+      border-color: transparent !important
+  &.closed
+    max-width: 45px
+    .v-input__slot
+      background: transition !important
 </style>
+
+
+
+
 

@@ -1,9 +1,9 @@
 <template>
   <div class="home">
-    <v-container class="pt-13">
+    <v-container >
       <v-text-field
         
-        class="pt-13"
+    
         v-model="newTodoItem"
         v-on:keyup.enter="addTodo"
         outlined

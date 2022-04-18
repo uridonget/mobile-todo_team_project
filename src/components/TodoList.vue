@@ -1,13 +1,7 @@
 <template>
   <v-container>
-
     <v-row>
-        <v-bottom-navigation
-          :value="filter"
-          color="primary"
-        >
-        
-
+      <v-bottom-navigation :value="filter" color="primary">
         <v-col>
           <v-btn @click="getClickedAll">
             <span>모두</span>
@@ -28,66 +22,54 @@
             <span>완료</span>
           </v-btn>
         </v-col>
-        </v-bottom-navigation>
+      </v-bottom-navigation>
     </v-row>
 
-    
-    <v-expansion-panels 
-    v-for="(todoItem, index) in propsdata" :key="todoItem" 
-    class="mt-5">
-      <v-expansion-panel  
-      v-if="todoItem.status === showStatus || showStatus === '모두'"
+    <v-expansion-panels
+      v-for="(todoItem, index) in propsdata"
+      :key="todoItem"
+      class="mt-5"
+    >
+      <v-expansion-panel
+        v-if="todoItem.status === showStatus || showStatus === '모두'"
+        
       >
-      
         <v-expansion-panel-header>
-            <v-col>
-              Due : {{ todoItem.date }}
-            </v-col>
-            <v-col>
-              <v-text-field
-              v-model="todoItem.title">
-                {{ todoItem.title }}
-              </v-text-field>
-            </v-col>
-            <v-col>
-              <v-btn @click="$emit('changeStatus', index)">
-                {{ todoItem.status }}
-              </v-btn>
-            </v-col>
-
+          <v-col> Due : {{ todoItem.date }} </v-col>
+          <v-col>
+            <v-text-field v-model="todoItem.title">
+              {{ todoItem.title }}
+            </v-text-field>
+          </v-col>
+          <v-col>
+            <v-btn @click="$emit('changeStatus', index)">
+              {{ todoItem.status }}
+            </v-btn>
+          </v-col>
         </v-expansion-panel-header>
 
         <v-expansion-panel-content>
           <v-row>
             <v-textarea
-            height="50"
-            outlined
-            v-model="todoItem.detail"
+              height="50"
+              outlined
+              v-model="todoItem.detail"
             ></v-textarea>
           </v-row>
-          
+
           <v-row justify="center">
             <v-col cols="auto">
-              <v-btn @click="editTodo(todoItem, index)">
-                수정
-              </v-btn>
+              <v-btn @click="editTodo(todoItem, index)"> 수정 </v-btn>
             </v-col>
             <v-spacer></v-spacer>
             <v-col cols="auto">
-              <v-btn @click="removeTodo(todoItem, index)">
-                삭제
-              </v-btn>
+              <v-btn @click="removeTodo(todoItem, index)"> 삭제 </v-btn>
             </v-col>
           </v-row>
-          <v-row>
-            index: {{ index }}
-          </v-row>
+          <v-row> index: {{ index }} </v-row>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
-
-
-
   </v-container>
 </template>
 
@@ -103,35 +85,27 @@ export default {
       this.$emit("editTodo", todoItem, index);
     },
 
-    getClickedAll(){
-      this.showStatus = "모두"
+    getClickedAll() {
+      this.showStatus = "모두";
     },
-    getClickedTodo(){
+    getClickedTodo() {
       this.showStatus = "할 일";
     },
-    getClickedOngoing(){
+    getClickedOngoing() {
       this.showStatus = "진행 중";
     },
-    getClickedEnd(){
+    getClickedEnd() {
       this.showStatus = "완료";
     },
-
-
   },
 
   data() {
-    
     return {
       statuses: ["to-do", "in-progress", "finished"],
       showStatus: "모두",
-    
-    }
- 
-},
-
+    };
+  },
 };
-
-
 </script>
 
 <style scoped>
