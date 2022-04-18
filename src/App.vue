@@ -1,39 +1,69 @@
 <template>
-  <v-app>
-    <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-      </div>
+  <v-app id="inspire">
+    <v-navigation-drawer v-model="drawer" app>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="text-h6"> Application </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-list>
+        <v-list-group
+          v-for="item in items"
+          :key="item.title"
+          v-model="item.active"
+          :prepend-icon="item.action"
+          no-action
+        >
+          <template v-slot:activator>
+            <v-list-item-content>
+              <v-list-item-title v-text="item.title"></v-list-item-title>
+            </v-list-item-content>
+          </template>
+
+          <v-list-item v-for="child in item.items" :key="child.title">
+            <v-list-item-content>
+              <v-list-item-title v-text="child.title"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-group>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-app-bar
+      fixed
+      color="green"
+      dark
+      hide-on-scroll
+      prominent
+      scroll-target="#scrolling-techniques"
+      height="90"
+    >
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>Title </v-toolbar-title>
 
       <v-spacer></v-spacer>
 
-      <v-btn text>
-        <span>More</span>
-        <v-icon>mdi-menu</v-icon>
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
       </v-btn>
     </v-app-bar>
 
     <v-main>
-      <TodoHeader />
+      <router-view></router-view>
       <TodoInput v-on:addTodo="addTodo"></TodoInput>
       <TodoList
         v-bind:propsdata="todoItems"
         @removeTodo="removeTodo"
         @changeStatus="changeStatus"
-        @editTodo="editTodo"  
+        @editTodo="editTodo"
       ></TodoList>
     </v-main>
     <v-footer color="primary">
       {{ todoItems }}
-      {{ typeof(todoItems)}}
-      
+      {{ typeof todoItems }}
+
       <TodoFooter v-on:removeAll="clearAll" />
     </v-footer>
   </v-app>
@@ -41,7 +71,7 @@
 
 <script>
 import TodoFooter from "./components/TodoFooter.vue";
-import TodoHeader from "./components/TodoHeader.vue";
+
 import TodoList from "./components/TodoList.vue";
 import TodoInput from "./components/TodoInput.vue";
 
@@ -51,21 +81,24 @@ export default {
   components: {
     TodoList,
     TodoFooter,
-    TodoHeader,
+
     TodoInput,
   },
 
-  data() {
-    return {
-      todoItems: [],
-      statuses: ["할 일", "진행 중", "완료"],
-      
-      
-      
-    };
-  },
-  methods: {
+  data: () => ({
+    drawer: null,
+    todoItems: [],
+    statuses: ["할 일", "진행 중", "완료"],
+    items: [
+      {
+        action: "mdi-ticket",
+        items: [{ title: "List item" }],
+        title: "Attractions",
+      },
+    ],
+  }),
 
+  methods: {
     clearAll() {
       localStorage.clear();
       this.todoItems = [];
@@ -80,10 +113,11 @@ export default {
       this.todoItems.splice(index, 1);
     },
 
-    editTodo(todoItem, index){
-      localStorage.removeItem((JSON.parse(localStorage.getItem(localStorage.key(index)))).title);
+    editTodo(todoItem, index) {
+      localStorage.removeItem(
+        JSON.parse(localStorage.getItem(localStorage.key(index))).title
+      );
       localStorage.setItem(todoItem.title, JSON.stringify(todoItem));
-      
     },
 
     changeStatus(index) {
@@ -91,12 +125,13 @@ export default {
       if (++newIndex > 2) newIndex = 0;
       this.todoItems[index].status = this.statuses[newIndex];
     },
-
   },
   created() {
     if (localStorage.length > 0) {
       for (var i = 0; i < localStorage.length; i++) {
-        this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+        this.todoItems.push(
+          JSON.parse(localStorage.getItem(localStorage.key(i)))
+        );
       }
     }
   },
