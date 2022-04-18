@@ -1,9 +1,7 @@
 <template>
   <div class="home">
-    <v-container >
+    <v-container>
       <v-text-field
-        
-    
         v-model="newTodoItem"
         v-on:keyup.enter="addTodo"
         outlined
@@ -48,9 +46,10 @@
         height="100"
       ></v-textarea>
       <v-divider></v-divider>
-      <v-card-actions class="pt-3">
-        <v-btn @click="clearInput" color="green" outlined> Clear </v-btn>
+      <v-card-actions class="pt-3" >
+        <v-btn  @click="clearInput" color="green" outlined> Clear </v-btn>
         <v-spacer></v-spacer>
+         <v-btn @click="setCategory" color="green" outlined> category </v-btn>
         <v-btn @click="addTodo" color="green" outlined> 등록 </v-btn>
       </v-card-actions>
 
@@ -79,6 +78,9 @@ export default {
   },
 
   methods: {
+    setCategory(){
+      
+    },
     addTodo() {
       if (this.newTodoItem !== "") {
         const value = {

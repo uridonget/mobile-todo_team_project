@@ -3,7 +3,7 @@
     <v-navigation-drawer v-model="drawer" app>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="text-h6"> Application </v-list-item-title>
+          <v-list-item-title class="text-h6"> Category </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
@@ -36,32 +36,31 @@
       dark
       hide-on-scroll
       prominent
-      scroll-target="#scrolling-techniques-4"
-      height="120"
+      scroll-target="#scrolling-techniques-10"
+      height="100"
     >
-    <v-col>
-      <v-row>
-        <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-col>
+        <v-row>
+          <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-        <v-spacer></v-spacer>
-        <v-text-field
-          @blur="searchClosed = true"
-          @focus="searchClosed = false"
-          v-model="search"
-          placeholder="Search"
-          filled
-          dense
-          clearable
-          prepend-inner-icon="mdi-magnify"
-          class="expanding-search mt-1"
-          :class="{ closed: searchClosed && !search }"
-        ></v-text-field>
-      </v-row>
+          <v-spacer></v-spacer>
+          <v-text-field
+            @blur="searchClosed = true"
+            @focus="searchClosed = false"
+            v-model="search"
+            placeholder="Search"
+            dense
+            clearable
+            prepend-inner-icon="mdi-magnify"
+            class="expanding-search mt-1"
+            :class="{ closed: searchClosed && !search }"
+          ></v-text-field>
+        </v-row>
 
-      <v-row>
-        <v-toolbar-title>Title </v-toolbar-title>
-      </v-row>
-    </v-col>
+        <v-row>
+          <v-toolbar-title>Just Do it! </v-toolbar-title>
+        </v-row>
+      </v-col>
     </v-app-bar>
 
     <v-main>
@@ -119,6 +118,7 @@ export default {
       localStorage.clear();
       this.todoItems = [];
     },
+    addCategory(){},
     addTodo(todoItem) {
       localStorage.setItem(todoItem.title, JSON.stringify(todoItem));
       this.todoItems.push(todoItem);
@@ -163,10 +163,11 @@ export default {
     &:before, &:after
       border-color: transparent !important
   &.closed
-    max-width: 45px
+    max-width: 30px
     .v-input__slot
       background: transition !important
 </style>
+
 
 
 
