@@ -28,6 +28,13 @@
           </v-list-item>
         </v-list-group>
       </v-list>
+      <v-btn
+        color="green"
+        dark
+        absolute
+        bottom
+        :style="{ left: '50%', transform: 'translateX(-50%)' }"
+      >Add Category</v-btn>
     </v-navigation-drawer>
 
     <v-app-bar
@@ -110,6 +117,11 @@ export default {
         items: [{ title: "List item" }],
         title: "Attractions",
       },
+      {
+        action: "mdi-ticket",
+        items: [{ title: "List item" }],
+        title: "Attractions",
+      },
     ],
   }),
 
@@ -118,7 +130,7 @@ export default {
       localStorage.clear();
       this.todoItems = [];
     },
-    addCategory(){},
+    addCategory() {},
     addTodo(todoItem) {
       localStorage.setItem(todoItem.title, JSON.stringify(todoItem));
       this.todoItems.push(todoItem);

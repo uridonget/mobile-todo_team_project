@@ -29,6 +29,7 @@
       v-for="(todoItem, index) in propsdata"
       :key="todoItem"
       class="mt-5"
+      
     >
       <v-expansion-panel
         v-if="todoItem.status === showStatus || showStatus === '모두'"
@@ -51,7 +52,7 @@
         <v-expansion-panel-content>
           <v-row>
             <v-textarea
-              height="50"
+              height="20"
               outlined
               v-model="todoItem.detail"
             ></v-textarea>
@@ -101,6 +102,7 @@ export default {
 
   data() {
     return {
+      
       statuses: ["to-do", "in-progress", "finished"],
       showStatus: "모두",
     };
