@@ -42,13 +42,18 @@
               <v-icon>mdi-pin</v-icon>
             </v-btn>
           </v-col>
-           <v-col
+          <v-col
             cols="5"
             v-if="
               Math.floor(
                 (new Date(todoItem.date).getTime() - new Date().getTime()) /
                   (1000 * 60 * 60 * 24)
-              ) <= 1
+              ) <= 1 &&
+              0 <
+                Math.floor(
+                  (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                    (1000 * 60 * 60 * 24)
+                )
             "
           >
             <v-card-text class="red--text">
@@ -63,10 +68,11 @@
           <v-col
             cols="5"
             v-if="
-              4 <= Math.floor(
+              4 <=
+              Math.floor(
                 (new Date(todoItem.date).getTime() - new Date().getTime()) /
                   (1000 * 60 * 60 * 24)
-              ) 
+              )
             "
           >
             <v-card-text class="green--text">
@@ -80,7 +86,17 @@
           </v-col>
           <v-col
             cols="5"
-            v-else
+            v-if="
+              Math.floor(
+                (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                  (1000 * 60 * 60 * 24)
+              ) <= 3 &&
+              2 <=
+                Math.floor(
+                  (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                    (1000 * 60 * 60 * 24)
+                )
+            "
           >
             <v-card-text class="yellow--text">
               D-{{
@@ -93,18 +109,18 @@
           </v-col>
 
           <v-col cols="10">
-            <v-text-field v-model="todoItem.title" color ='green'>
+            <v-text-field v-model="todoItem.title" color="green">
               {{ todoItem.title }}
             </v-text-field>
           </v-col>
-          
         </v-expansion-panel-header>
 
         <v-expansion-panel-content>
           <v-row>
             <v-textarea
               height="50"
-              outlined color ='green'
+              outlined
+              color="green"
               v-model="todoItem.detail"
             ></v-textarea>
           </v-row>
@@ -160,7 +176,12 @@
               Math.floor(
                 (new Date(todoItem.date).getTime() - new Date().getTime()) /
                   (1000 * 60 * 60 * 24)
-              ) <= 1
+              ) <= 1 &&
+              0 <
+                Math.floor(
+                  (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                    (1000 * 60 * 60 * 24)
+                )
             "
           >
             <v-card-text class="red--text">
@@ -175,10 +196,11 @@
           <v-col
             cols="5"
             v-if="
-              4 <= Math.floor(
+              4 <=
+              Math.floor(
                 (new Date(todoItem.date).getTime() - new Date().getTime()) /
                   (1000 * 60 * 60 * 24)
-              ) 
+              )
             "
           >
             <v-card-text class="green--text">
@@ -192,7 +214,17 @@
           </v-col>
           <v-col
             cols="5"
-            v-else
+            v-if="
+              Math.floor(
+                (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                  (1000 * 60 * 60 * 24)
+              ) <= 3 &&
+              2 <=
+                Math.floor(
+                  (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                    (1000 * 60 * 60 * 24)
+                )
+            "
           >
             <v-card-text class="yellow--text">
               D-{{
@@ -204,7 +236,7 @@
             </v-card-text>
           </v-col>
           <v-col cols="10">
-            <v-text-field v-model="todoItem.title" color ='green'> 
+            <v-text-field v-model="todoItem.title" color="green">
               {{ todoItem.title }}
             </v-text-field>
           </v-col>
@@ -214,7 +246,8 @@
           <v-row>
             <v-textarea
               height="50"
-              outlined color ='green'
+              outlined
+              color="green"
               v-model="todoItem.detail"
             ></v-textarea>
           </v-row>
