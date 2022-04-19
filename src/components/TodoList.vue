@@ -135,7 +135,7 @@
               index: {{ index }} 
             </v-col>
             <v-col>
-              Due : {{ todoItem.date }}
+              D-{{ Math.floor(((new Date(todoItem.date)).getTime()-(new Date()).getTime())/(1000*60*60*24))}}
             </v-col>
           </v-row>
 
@@ -153,6 +153,9 @@
 export default {
   props: ["propsdata"],
   methods: {
+
+
+
     removeTodo(todoItem, index) {
       this.$emit("removeTodo", todoItem, index);
     },
@@ -175,8 +178,6 @@ export default {
     getClickedEnd() {
       this.showStatus = "완료";
     },
-
-
   },
 
   data() {

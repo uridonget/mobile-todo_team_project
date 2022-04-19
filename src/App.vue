@@ -115,6 +115,9 @@ export default {
   }),
 
   methods: {
+
+
+
     clearAll() {
       localStorage.clear();
       this.todoItems = [];
@@ -159,6 +162,8 @@ export default {
 
   },
   created() {
+    // let year = today.getFullYear();
+    // console.log(year)
     if (localStorage.length > 0) {
       for (var i = 0; i < localStorage.length; i++) {
         this.todoItems.push(
