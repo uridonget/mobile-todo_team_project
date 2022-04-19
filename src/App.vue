@@ -82,7 +82,7 @@
         @getFixed="getFixed"
       ></TodoList>
     </v-main>
-    <v-footer color="primary">
+    <v-footer color="white">
       {{ todoItems }}
       {{ typeof todoItems }}
 

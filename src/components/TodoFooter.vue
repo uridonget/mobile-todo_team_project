@@ -1,8 +1,8 @@
-<!--<template>
+<template>
   <v-container>
     <v-row class="text-center">
     <div class="clearAllContainer">
-      <span class="clearAllBtn" @click="clearTodo">Clear All</span>
+      <v-btn outlined color='green' @click="clearTodo">Clear All</v-btn>
     </div>
     </v-row>
   </v-container>
