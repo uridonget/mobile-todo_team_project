@@ -88,7 +88,9 @@ export default {
           detail: this.newTodoItemDetail,
           date: this.newDate,
           status: "할 일",
-          getFixedOrNot: 'FALSE'
+          getFixedOrNot: 'FALSE',
+          pastTitle: this.newTodoItem,
+          
         };
         this.$emit("addTodo", value);
         this.clearInput();
