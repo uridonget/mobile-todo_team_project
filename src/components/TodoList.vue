@@ -24,116 +24,271 @@
         </v-col>
       </v-bottom-navigation>
     </v-row>
-    <v-row v-for="(todoItem, index) in propsdata" :key="todoItem">
-      <v-card
-        class="mx-auto"
-        width="600"
-        v-if="todoItem.status === showStatus || showStatus === '모두'"
+    <v-row class="mt-5">
+      <v-expansion-panels
+        v-for="(todoItem, index) in propsdata"
+        :key="todoItem"
       >
-        <v-card-title v-model="todoItem.title">
-          D-{{
-            Math.floor(
-              (new Date(todoItem.date).getTime() - new Date().getTime()) /
-                (1000 * 60 * 60 * 24)
-            )
-          }}
-          {{ todoItem.title }}
-        </v-card-title>
+        <v-expansion-panel
+          v-if="
+            (todoItem.status === showStatus || showStatus === '모두') &&
+            todoItem.getFixedOrNot === 'TRUE'
+          "
+        >
+          <v-expansion-panel-header>
+            <v-col cols="2">
+              <v-btn icon @click="getFixed(todoItem, index)" color="green">
+                <v-icon>mdi-pin</v-icon>
+              </v-btn>
+            </v-col>
+            <v-col
+              cols="5"
+              v-if="
+                Math.floor(
+                  (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                    (1000 * 60 * 60 * 24)
+                ) <= 1 &&
+                0 <
+                  Math.floor(
+                    (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                      (1000 * 60 * 60 * 24)
+                  )
+              "
+            >
+              <v-card-text class="red--text">
+                D-{{
+                  Math.floor(
+                    (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                      (1000 * 60 * 60 * 24)
+                  )
+                }}
+              </v-card-text>
+            </v-col>
+            <v-col
+              cols="5"
+              v-if="
+                4 <=
+                Math.floor(
+                  (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                    (1000 * 60 * 60 * 24)
+                )
+              "
+            >
+              <v-card-text class="green--text">
+                D-{{
+                  Math.floor(
+                    (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                      (1000 * 60 * 60 * 24)
+                  )
+                }}
+              </v-card-text>
+            </v-col>
+            <v-col
+              cols="5"
+              v-if="
+                Math.floor(
+                  (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                    (1000 * 60 * 60 * 24)
+                ) <= 3 &&
+                2 <=
+                  Math.floor(
+                    (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                      (1000 * 60 * 60 * 24)
+                  )
+              "
+            >
+              <v-card-text class="yellow--text">
+                D-{{
+                  Math.floor(
+                    (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                      (1000 * 60 * 60 * 24)
+                  )
+                }}
+              </v-card-text>
+            </v-col>
 
-        <v-card-actions>
-          <v-col class="pt-0">
-            <v-btn @click="$emit('changeStatus', index)" color="green" outlined>
-              {{ todoItem.status }}
-            </v-btn>
-          </v-col>
-          <v-spacer></v-spacer>
+            <v-col cols="10">
+              <v-text-field v-model="todoItem.title" color="green">
+                {{ todoItem.title }}
+              </v-text-field>
+            </v-col>
+          </v-expansion-panel-header>
 
-          <v-btn icon @click="show = !show">
-            <v-icon>{{ show ? "mdi-chevron-up" : "mdi-chevron-down" }}</v-icon>
-          </v-btn>
-        </v-card-actions>
+          <v-expansion-panel-content>
+            <v-row>
+              <v-textarea
+                height="50"
+                outlined
+                color="green"
+                v-model="todoItem.detail"
+              ></v-textarea>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-btn @click="$emit('changeStatus', index)" color="green">
+                  {{ todoItem.status }}
+                </v-btn>
+              </v-col>
+            </v-row>
 
-        <v-expand-transition>
-          <div v-show="show">
-            <v-divider></v-divider>
+            <v-row justify="center">
+              <v-col cols="auto">
+                <v-btn
+                  @click="editTodo(todoItem, index)"
+                  outlined
+                  color="green"
+                >
+                  수정
+                </v-btn>
+              </v-col>
+              <v-spacer></v-spacer>
+              <v-col cols="auto">
+                <v-btn
+                  @click="removeTodo(todoItem, index)"
+                  outlined
+                  color="green"
+                >
+                  삭제
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+    </v-row>
+    <v-row class="mt-3">
+      <v-expansion-panels
+        v-for="(todoItem, index) in propsdata"
+        :key="todoItem"
+      >
+        <v-expansion-panel
+          v-if="
+            (todoItem.status === showStatus || showStatus === '모두') &&
+            todoItem.getFixedOrNot === 'FALSE'
+          "
+        >
+          <v-expansion-panel-header>
+            <v-col cols="2">
+              <v-btn icon @click="getFixed(todoItem, index)">
+                <v-icon>mdi-pin</v-icon>
+              </v-btn>
+            </v-col>
+            <v-col
+              cols="5"
+              v-if="
+                Math.floor(
+                  (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                    (1000 * 60 * 60 * 24)
+                ) <= 1 &&
+                0 <
+                  Math.floor(
+                    (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                      (1000 * 60 * 60 * 24)
+                  )
+              "
+            >
+              <v-card-text class="red--text">
+                D-{{
+                  Math.floor(
+                    (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                      (1000 * 60 * 60 * 24)
+                  )
+                }}
+              </v-card-text>
+            </v-col>
+            <v-col
+              cols="5"
+              v-if="
+                4 <=
+                Math.floor(
+                  (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                    (1000 * 60 * 60 * 24)
+                )
+              "
+            >
+              <v-card-text class="green--text">
+                D-{{
+                  Math.floor(
+                    (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                      (1000 * 60 * 60 * 24)
+                  )
+                }}
+              </v-card-text>
+            </v-col>
+            <v-col
+              cols="5"
+              v-if="
+                Math.floor(
+                  (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                    (1000 * 60 * 60 * 24)
+                ) <= 3 &&
+                2 <=
+                  Math.floor(
+                    (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                      (1000 * 60 * 60 * 24)
+                  )
+              "
+            >
+              <v-card-text class="yellow--text">
+                D-{{
+                  Math.floor(
+                    (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                      (1000 * 60 * 60 * 24)
+                  )
+                }}
+              </v-card-text>
+            </v-col>
+            <v-col cols="10">
+              <v-text-field v-model="todoItem.title" color="green">
+                {{ todoItem.title }}
+              </v-text-field>
+            </v-col>
+          </v-expansion-panel-header>
 
-            <v-card-text>
-              <v-text-field v-model="todoItem.detail" auto-grow></v-text-field>
+          <v-expansion-panel-content>
+            <v-row>
+              <v-textarea
+                height="50"
+                outlined
+                color="green"
+                v-model="todoItem.detail"
+              ></v-textarea>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-btn @click="$emit('changeStatus', index)" color="green">
+                  {{ todoItem.status }}
+                </v-btn>
+              </v-col>
+            </v-row>
 
-              <v-row justify="center">
-                <v-col cols="auto">
-                  <v-btn
-                    @click="editTodo(todoItem, index)"
-                    color="green"
-                    outlined
-                  >
-                    수정
-                  </v-btn>
-                </v-col>
-                <v-spacer></v-spacer>
-                <v-col cols="auto">
-                  <v-btn
-                    @click="removeTodo(todoItem, index)"
-                    color="green"
-                    outlined
-                  >
-                    삭제
-                  </v-btn>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </div>
-        </v-expand-transition>
-      </v-card>
+            <v-row justify="center">
+              <v-col cols="auto">
+                <v-btn
+                  @click="editTodo(todoItem, index)"
+                  outlined
+                  color="green"
+                >
+                  수정
+                </v-btn>
+              </v-col>
+              <v-spacer></v-spacer>
+              <v-col cols="auto">
+                <v-btn
+                  @click="removeTodo(todoItem, index)"
+                  outlined
+                  color="green"
+                >
+                  삭제
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
     </v-row>
   </v-container>
-
-  <!-- <v-expansion-panels
-      v-for="(todoItem, index) in propsdata"
-      :key="todoItem"
-      class="mt-5"
-    >
-      <v-expansion-panel
-        v-if="todoItem.status === showStatus || showStatus === '모두'"
-      >
-        <v-expansion-panel-header>
-          <v-col> Due : {{ todoItem.date }} </v-col>
-          <v-col>
-            <v-text-field v-model="todoItem.title">
-              {{ todoItem.title }}
-            </v-text-field>
-          </v-col>
-          <v-col>
-            <v-btn @click="$emit('changeStatus', index)">
-              {{ todoItem.status }}
-            </v-btn>
-          </v-col>
-        </v-expansion-panel-header>
-
-        <v-expansion-panel-content>
-          <v-row>
-            <v-textarea
-              height="20"
-              outlined
-              v-model="todoItem.detail"
-            ></v-textarea>
-          </v-row>
-
-          <v-row justify="center">
-            <v-col cols="auto">
-              <v-btn @click="editTodo(todoItem, index)"> 수정 </v-btn>
-            </v-col>
-            <v-spacer></v-spacer>
-            <v-col cols="auto">
-              <v-btn @click="removeTodo(todoItem, index)"> 삭제 </v-btn>
-            </v-col>
-          </v-row>
-          <v-row> index: {{ index }} </v-row>
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-expansion-panels>-->
 </template>
-
 
 <script>
 export default {
@@ -157,6 +312,9 @@ export default {
     },
     getClickedEnd() {
       this.showStatus = "완료";
+    },
+    getFixed(todoItem, index) {
+      this.$$emit("getFixed", todoItem, index);
     },
   },
 
