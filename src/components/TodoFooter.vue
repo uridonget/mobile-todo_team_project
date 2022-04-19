@@ -28,7 +28,7 @@ export default {
   margin: 0 auto;
 }
 .clearAllBtn {
-  color: #e20303;
+  color:green;
   display: block;
 }
 </style>

@@ -4,7 +4,7 @@
       <v-text-field
         v-model="newTodoItem"
         v-on:keyup.enter="addTodo"
-        outlined
+        outlined color ='green'
         label="Title"
       ></v-text-field>
 
@@ -19,7 +19,7 @@
       >
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
-            outlined
+            outlined color ='green'
             label="Pick your D-DAY"
             v-model="newDate"
             prepend-inner-icon="mdi-calendar"
@@ -28,10 +28,10 @@
             v-on="on"
           ></v-text-field>
         </template>
-        <v-date-picker v-model="newDate" no-title scrollable>
+        <v-date-picker v-model="newDate" no-title scrollable color="green">
           <v-spacer></v-spacer>
-          <v-btn text color="primary" @click="menu = false"> Cancel </v-btn>
-          <v-btn text color="primary" @click="$refs.menu.save(date)">
+          <v-btn text color="green" @click="menu = false"> Cancel </v-btn>
+          <v-btn text color="green" @click="$refs.menu.save(date)">
             OK
           </v-btn>
         </v-date-picker>
@@ -41,7 +41,7 @@
         v-model="newTodoItemDetail"
         placeholder="Type Detailed Notation"
         v-on:keyup.enter="addTodo"
-        outlined
+        outlined color ='green'
         label="Details"
         height="100"
       ></v-textarea>

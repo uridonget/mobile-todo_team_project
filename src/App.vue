@@ -74,10 +74,7 @@
         @getFixed="getFixed"
       ></TodoList>
     </v-main>
-    <v-footer color="primary">
-      {{ todoItems }}
-      {{ typeof todoItems }}
-
+    <v-footer color='white'>
       <TodoFooter v-on:removeAll="clearAll" />
     </v-footer>
   </v-app>
