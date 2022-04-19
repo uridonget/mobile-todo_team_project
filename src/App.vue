@@ -78,6 +78,7 @@
         @removeTodo="removeTodo"
         @changeStatus="changeStatus"
         @editTodo="editTodo"
+         @getFixed="getFixed"
       ></TodoList>
     </v-main>
     <v-footer color="primary">
