@@ -34,7 +34,8 @@
         absolute
         bottom
         :style="{ left: '50%', transform: 'translateX(-50%)' }"
-      >Add Category</v-btn>
+        >Add Category</v-btn
+      >
     </v-navigation-drawer>
 
     <v-app-bar
@@ -78,7 +79,7 @@
         @removeTodo="removeTodo"
         @changeStatus="changeStatus"
         @editTodo="editTodo"
-         @getFixed="getFixed"
+        @getFixed="getFixed"
       ></TodoList>
     </v-main>
     <v-footer color="primary">
