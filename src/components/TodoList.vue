@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-bottom-navigation :value="filter" color="primary">
+      <v-bottom-navigation :value="filter" color="green">
         <v-col>
           <v-btn @click="getClickedAll">
             <span>모두</span>
@@ -34,11 +34,11 @@
           {{ todoItem.title }}</v-card-title
         >
         <v-card-subtitle
-          ><v-col> Due: {{ todoItem.date }}</v-col>
+          > Due: {{ todoItem.date }}
         </v-card-subtitle>
         <v-card-actions>
-          <v-col>
-            <v-btn @click="$emit('changeStatus', index)">
+          <v-col class='pt-0'>
+            <v-btn @click="$emit('changeStatus', index)"  color="green" outlined>
               {{ todoItem.status }}
             </v-btn>
           </v-col>
@@ -58,11 +58,11 @@
 
               <v-row justify="center">
                 <v-col cols="auto">
-                  <v-btn @click="editTodo(todoItem, index)"> 수정 </v-btn>
+                  <v-btn @click="editTodo(todoItem, index)"  color="green" outlined> 수정 </v-btn>
                 </v-col>
                 <v-spacer></v-spacer>
                 <v-col cols="auto">
-                  <v-btn @click="removeTodo(todoItem, index)"> 삭제 </v-btn>
+                  <v-btn @click="removeTodo(todoItem, index)"  color="green" outlined> 삭제 </v-btn>
                 </v-col>
               </v-row>
             </v-card-text>
