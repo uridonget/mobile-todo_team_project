@@ -35,13 +35,18 @@
         
       >
         <v-expansion-panel-header>
-          <v-col> Due : {{ todoItem.date }} </v-col>
-          <v-col>
+          <v-col cols="2">
+            <v-btn>
+              고정
+            </v-btn>
+          </v-col>
+
+          <v-col cols="10">
             <v-text-field v-model="todoItem.title">
               {{ todoItem.title }}
             </v-text-field>
           </v-col>
-          <v-col>
+          <v-col cols="2">
             <v-btn @click="$emit('changeStatus', index)">
               {{ todoItem.status }}
             </v-btn>
@@ -66,7 +71,15 @@
               <v-btn @click="removeTodo(todoItem, index)"> 삭제 </v-btn>
             </v-col>
           </v-row>
-          <v-row> index: {{ index }} </v-row>
+          <v-row> 
+            <v-col>
+              index: {{ index }} 
+            </v-col>
+            <v-col>
+              Due : {{ todoItem.date }}
+            </v-col>
+          </v-row>
+
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
