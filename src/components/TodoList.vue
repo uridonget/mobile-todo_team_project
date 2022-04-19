@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row >
       <v-bottom-navigation :value="filter" color="green">
-        <v-col>
+        <v-col class='pt-2'>
           <v-btn @click="getClickedAll">
             <span>모두</span>
           </v-btn>
@@ -24,11 +24,11 @@
         </v-col>
       </v-bottom-navigation>
     </v-row>
-
+<v-row class="mt-5">
     <v-expansion-panels
       v-for="(todoItem, index) in propsdata"
       :key="todoItem"
-      class="mt-5"
+     
     >
       <v-expansion-panel
         v-if="
@@ -152,11 +152,14 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
+</v-row>
+<v-row class="mt-3">
 
     <v-expansion-panels
       v-for="(todoItem, index) in propsdata"
       :key="todoItem"
-      class="mt-5"
+      
+      
     >
       <v-expansion-panel
         v-if="
@@ -273,12 +276,14 @@
                 color="green"
               >
                 삭제
+              
               </v-btn>
             </v-col>
           </v-row>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
+</v-row>
   </v-container>
 </template>
 
