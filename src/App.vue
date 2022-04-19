@@ -128,6 +128,15 @@ export default {
   }),
 
   methods: {
+    getFixed(todoItem, index) {
+      console.log(todoItem);
+      console.log(index);
+      console.log(todoItem.getFixedOrNot);
+      if (todoItem.getFixedOrNot === "TRUE") todoItem.getFixedOrNot = "FALSE";
+      else todoItem.getFixedOrNot = "TRUE";
+      localStorage.setItem(todoItem.title, JSON.stringify(todoItem));
+    },
+
     clearAll() {
       localStorage.clear();
       this.todoItems = [];

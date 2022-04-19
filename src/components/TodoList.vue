@@ -287,6 +287,7 @@
   </v-container>
 </template>
 
+
 <script>
 export default {
   props: ["propsdata"],
@@ -296,6 +297,9 @@ export default {
     },
     editTodo(todoItem, index) {
       this.$emit("editTodo", todoItem, index);
+    },
+    getFixed(todoItem, index) {
+      this.$emit("getFixed", todoItem, index);
     },
 
     getClickedAll() {
@@ -310,16 +314,14 @@ export default {
     getClickedEnd() {
       this.showStatus = "완료";
     },
-    getFixed(todoItem, index) {
-      this.$$emit("getFixed", todoItem, index);
-    },
   },
 
-  data: () => ({
-    show: false,
-    statuses: ["to-do", "in-progress", "finished"],
-    showStatus: "모두",
-  }),
+  data() {
+    return {
+      statuses: ["to-do", "in-progress", "finished"],
+      showStatus: "모두",
+    };
+  },
 };
 </script>
 
