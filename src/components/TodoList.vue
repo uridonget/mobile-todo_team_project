@@ -24,16 +24,62 @@
         </v-col>
       </v-bottom-navigation>
     </v-row>
+    <v-row v-for="(todoItem, index) in propsdata" :key="todoItem">
+      <v-card
+        class="mx-auto"
+        width="600"
+        v-if="todoItem.status === showStatus || showStatus === '모두'"
+      >
+        <v-card-title v-model="todoItem.title" >
+          {{ todoItem.title }}</v-card-title
+        >
+        <v-card-subtitle
+          ><v-col> Due: {{ todoItem.date }}</v-col>
+        </v-card-subtitle>
+        <v-card-actions>
+          <v-col>
+            <v-btn @click="$emit('changeStatus', index)">
+              {{ todoItem.status }}
+            </v-btn>
+          </v-col>
+          <v-spacer></v-spacer>
 
-    <v-expansion-panels
+          <v-btn icon @click="show = !show">
+            <v-icon>{{ show ? "mdi-chevron-up" : "mdi-chevron-down" }}</v-icon>
+          </v-btn>
+        </v-card-actions>
+
+        <v-expand-transition>
+          <div v-show="show">
+            <v-divider></v-divider>
+
+            <v-card-text>
+              <v-text-field v-model="todoItem.detail" auto-grow></v-text-field>
+
+              <v-row justify="center">
+                <v-col cols="auto">
+                  <v-btn @click="editTodo(todoItem, index)"> 수정 </v-btn>
+                </v-col>
+                <v-spacer></v-spacer>
+                <v-col cols="auto">
+                  <v-btn @click="removeTodo(todoItem, index)"> 삭제 </v-btn>
+                </v-col>
+              </v-row>
+            </v-card-text>
+          </div>
+        </v-expand-transition>
+      </v-card>
+    </v-row>
+  </v-container>
+ 
+
+  <!-- <v-expansion-panels
       v-for="(todoItem, index) in propsdata"
       :key="todoItem"
       class="mt-5"
-      
     >
       <v-expansion-panel
         v-if="todoItem.status === showStatus || showStatus === '모두'"
-        
       >
         <v-expansion-panel-header>
           <v-col> Due : {{ todoItem.date }} </v-col>
@@ -70,8 +116,7 @@
           <v-row> index: {{ index }} </v-row>
         </v-expansion-panel-content>
       </v-expansion-panel>
-    </v-expansion-panels>
-  </v-container>
+    </v-expansion-panels>-->
 </template>
 
 
@@ -100,13 +145,11 @@ export default {
     },
   },
 
-  data() {
-    return {
-      
-      statuses: ["to-do", "in-progress", "finished"],
-      showStatus: "모두",
-    };
-  },
+  data: () => ({
+    show: false,
+    statuses: ["to-do", "in-progress", "finished"],
+    showStatus: "모두",
+  }),
 };
 </script>
 
