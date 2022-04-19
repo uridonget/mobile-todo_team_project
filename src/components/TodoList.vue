@@ -31,12 +31,12 @@
       class="mt-5"
     >
       <v-expansion-panel
-        v-if="todoItem.status === showStatus || showStatus === '모두'"
+        v-if="todoItem.status === showStatus || showStatus === '모두' && todoItem.getFixedOrNot === 'TRUE'"
         
       >
         <v-expansion-panel-header>
           <v-col cols="2">
-            <v-btn>
+            <v-btn @click="getFixed(todoItem, index)">
               고정
             </v-btn>
           </v-col>
@@ -83,6 +83,68 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
+
+    <v-expansion-panels
+      v-for="(todoItem, index) in propsdata"
+      :key="todoItem"
+      class="mt-5"
+    >
+      <v-expansion-panel
+        v-if="todoItem.status === showStatus || showStatus === '모두' && todoItem.getFixedOrNot === 'FALSE'"
+        
+      >
+        <v-expansion-panel-header>
+          <v-col cols="2">
+            <v-btn @click="getFixed(todoItem, index)">
+              고정
+            </v-btn>
+          </v-col>
+
+          <v-col cols="10">
+            <v-text-field v-model="todoItem.title">
+              {{ todoItem.title }}
+            </v-text-field>
+          </v-col>
+          <v-col cols="2">
+            <v-btn @click="$emit('changeStatus', index)">
+              {{ todoItem.status }}
+            </v-btn>
+          </v-col>
+        </v-expansion-panel-header>
+
+        <v-expansion-panel-content>
+          <v-row>
+            <v-textarea
+              height="50"
+              outlined
+              v-model="todoItem.detail"
+            ></v-textarea>
+          </v-row>
+
+          <v-row justify="center">
+            <v-col cols="auto">
+              <v-btn @click="editTodo(todoItem, index)"> 수정 </v-btn>
+            </v-col>
+            <v-spacer></v-spacer>
+            <v-col cols="auto">
+              <v-btn @click="removeTodo(todoItem, index)"> 삭제 </v-btn>
+            </v-col>
+          </v-row>
+          <v-row> 
+            <v-col>
+              index: {{ index }} 
+            </v-col>
+            <v-col>
+              Due : {{ todoItem.date }}
+            </v-col>
+          </v-row>
+
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
+
+
+
   </v-container>
 </template>
 
@@ -97,6 +159,9 @@ export default {
     editTodo(todoItem, index) {
       this.$emit("editTodo", todoItem, index);
     },
+    getFixed(todoItem, index){
+      this.$emit("getFixed", todoItem, index);
+    },
 
     getClickedAll() {
       this.showStatus = "모두";
@@ -110,6 +175,8 @@ export default {
     getClickedEnd() {
       this.showStatus = "완료";
     },
+
+
   },
 
   data() {

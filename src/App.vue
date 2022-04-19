@@ -71,6 +71,7 @@
         @removeTodo="removeTodo"
         @changeStatus="changeStatus"
         @editTodo="editTodo"
+        @getFixed="getFixed"
       ></TodoList>
     </v-main>
     <v-footer color="primary">
@@ -129,6 +130,17 @@ export default {
       this.todoItems.splice(index, 1);
     },
 
+    getFixed(todoItem, index){
+      console.log(todoItem)
+      console.log(index)
+      console.log(todoItem.getFixedOrNot)
+      if(todoItem.getFixedOrNot === 'TRUE')
+      todoItem.getFixedOrNot = 'FALSE'
+      else
+      todoItem.getFixedOrNot = 'TRUE'
+      localStorage.setItem(todoItem.title, JSON.stringify(todoItem))
+    },
+
     editTodo(todoItem, index) {
       localStorage.removeItem(
         JSON.parse(localStorage.getItem(localStorage.key(index))).title
@@ -141,6 +153,10 @@ export default {
       if (++newIndex > 2) newIndex = 0;
       this.todoItems[index].status = this.statuses[newIndex];
     },
+
+
+
+
   },
   created() {
     if (localStorage.length > 0) {
