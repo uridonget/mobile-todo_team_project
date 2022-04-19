@@ -25,18 +25,16 @@
       </v-bottom-navigation>
     </v-row>
 
-    <v-expansion-panels
+      <v-expansion-panels
       v-for="(todoItem, index) in propsdata"
       :key="todoItem"
       class="mt-5"
     >
       <v-expansion-panel
-        v-if="todoItem.status === showStatus || showStatus === '모두' && todoItem.getFixedOrNot === 'TRUE'"
-        
-      >
+        v-if="(todoItem.status === showStatus  || showStatus === '모두') && todoItem.getFixedOrNot === 'TRUE'">
         <v-expansion-panel-header>
           <v-col cols="2">
-            <v-btn @click="getFixed(todoItem, index)">
+            <v-btn @click="getFixed(todoItem, index)" color="yellow">
               고정
             </v-btn>
           </v-col>
@@ -47,9 +45,9 @@
             </v-text-field>
           </v-col>
           <v-col cols="2">
-            <v-btn @click="$emit('changeStatus', index)">
-              {{ todoItem.status }}
-            </v-btn>
+              <v-card-text>
+                D-{{ Math.floor(((new Date(todoItem.date)).getTime()-(new Date()).getTime())/(1000*60*60*24))}}
+              </v-card-text>
           </v-col>
         </v-expansion-panel-header>
 
@@ -60,6 +58,14 @@
               outlined
               v-model="todoItem.detail"
             ></v-textarea>
+          </v-row>
+          <v-row>
+            <v-col>
+
+              <v-btn @click="$emit('changeStatus', index)">
+              {{ todoItem.status }}
+            </v-btn>
+            </v-col>
           </v-row>
 
           <v-row justify="center">
@@ -75,22 +81,22 @@
             <v-col>
               index: {{ index }} 
             </v-col>
-            <v-col>
-              Due : {{ todoItem.date }}
-            </v-col>
+
           </v-row>
 
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
 
+
+
     <v-expansion-panels
       v-for="(todoItem, index) in propsdata"
       :key="todoItem"
       class="mt-5"
     >
       <v-expansion-panel
-        v-if="todoItem.status === showStatus || showStatus === '모두' && todoItem.getFixedOrNot === 'FALSE'"
+        v-if="(todoItem.status === showStatus || showStatus === '모두') && todoItem.getFixedOrNot === 'FALSE'"
         
       >
         <v-expansion-panel-header>
@@ -106,9 +112,9 @@
             </v-text-field>
           </v-col>
           <v-col cols="2">
-            <v-btn @click="$emit('changeStatus', index)">
-              {{ todoItem.status }}
-            </v-btn>
+              <v-card-text>
+                D-{{ Math.floor(((new Date(todoItem.date)).getTime()-(new Date()).getTime())/(1000*60*60*24))}}
+              </v-card-text>
           </v-col>
         </v-expansion-panel-header>
 
@@ -119,6 +125,14 @@
               outlined
               v-model="todoItem.detail"
             ></v-textarea>
+          </v-row>
+          <v-row>
+            <v-col>
+
+              <v-btn @click="$emit('changeStatus', index)">
+              {{ todoItem.status }}
+            </v-btn>
+            </v-col>
           </v-row>
 
           <v-row justify="center">
@@ -133,9 +147,6 @@
           <v-row> 
             <v-col>
               index: {{ index }} 
-            </v-col>
-            <v-col>
-              D-{{ Math.floor(((new Date(todoItem.date)).getTime()-(new Date()).getTime())/(1000*60*60*24))}}
             </v-col>
           </v-row>
 
