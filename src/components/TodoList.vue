@@ -30,15 +30,19 @@
         width="600"
         v-if="todoItem.status === showStatus || showStatus === '모두'"
       >
-        <v-card-title v-model="todoItem.title" >
-          {{ todoItem.title }}</v-card-title
-        >
-        <v-card-subtitle
-          > Due: {{ todoItem.date }}
-        </v-card-subtitle>
+        <v-card-title v-model="todoItem.title">
+          D-{{
+            Math.floor(
+              (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                (1000 * 60 * 60 * 24)
+            )
+          }}
+          {{ todoItem.title }}
+        </v-card-title>
+
         <v-card-actions>
-          <v-col class='pt-0'>
-            <v-btn @click="$emit('changeStatus', index)"  color="green" outlined>
+          <v-col class="pt-0">
+            <v-btn @click="$emit('changeStatus', index)" color="green" outlined>
               {{ todoItem.status }}
             </v-btn>
           </v-col>
@@ -58,11 +62,23 @@
 
               <v-row justify="center">
                 <v-col cols="auto">
-                  <v-btn @click="editTodo(todoItem, index)"  color="green" outlined> 수정 </v-btn>
+                  <v-btn
+                    @click="editTodo(todoItem, index)"
+                    color="green"
+                    outlined
+                  >
+                    수정
+                  </v-btn>
                 </v-col>
                 <v-spacer></v-spacer>
                 <v-col cols="auto">
-                  <v-btn @click="removeTodo(todoItem, index)"  color="green" outlined> 삭제 </v-btn>
+                  <v-btn
+                    @click="removeTodo(todoItem, index)"
+                    color="green"
+                    outlined
+                  >
+                    삭제
+                  </v-btn>
                 </v-col>
               </v-row>
             </v-card-text>
@@ -71,7 +87,6 @@
       </v-card>
     </v-row>
   </v-container>
- 
 
   <!-- <v-expansion-panels
       v-for="(todoItem, index) in propsdata"
