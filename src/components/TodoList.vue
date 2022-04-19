@@ -1,25 +1,25 @@
 <template>
   <v-container>
-    <v-row >
+    <v-row  class="pt-2">
       <v-bottom-navigation :value="filter" color="green">
-        <v-col class='pt-2'>
+        <v-col >
           <v-btn @click="getClickedAll">
-            <span>모두</span>
+            모두
           </v-btn>
         </v-col>
         <v-col>
           <v-btn @click="getClickedTodo">
-            <span>할 일</span>
+            할 일
           </v-btn>
         </v-col>
         <v-col>
           <v-btn @click="getClickedOngoing">
-            <span>진행 중</span>
+            진행 중
           </v-btn>
         </v-col>
         <v-col>
           <v-btn @click="getClickedEnd">
-            <span>완료</span>
+          완료
           </v-btn>
         </v-col>
       </v-bottom-navigation>
