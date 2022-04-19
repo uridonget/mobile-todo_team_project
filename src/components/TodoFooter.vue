@@ -2,7 +2,7 @@
   <v-container>
     <v-row class="text-center">
     <div class="clearAllContainer">
-      <span class="clearAllBtn" @click="clearTodo">Clear All</span>
+      <v-btn color='green' outlined @click="clearTodo">Clear All</v-btn>
     </div>
     </v-row>
   </v-container>
@@ -26,9 +26,5 @@ export default {
   background-color: white;
   border-radius: 5px;
   margin: 0 auto;
-}
-.clearAllBtn {
-  color:green;
-  display: block;
 }
 </style>
