@@ -31,22 +31,31 @@
         >
           <v-expansion-panel-header>
             <v-col cols="2">
-              <v-btn icon @click="getFixed(todoItem, index)" color="green">
+              <v-btn icon @click="getFixed(todoItem, index)" color='green'>
                 <v-icon>mdi-pin</v-icon>
               </v-btn>
             </v-col>
             <v-col
               cols="5"
               v-if="
-                Math.floor(
+                (Math.floor(
                   (new Date(todoItem.date).getTime() - new Date().getTime()) /
                     (1000 * 60 * 60 * 24)
-                ) <= 1 &&
-                0 <
+                ) +
+                  1 !=
+                  0 &&
                   Math.floor(
                     (new Date(todoItem.date).getTime() - new Date().getTime()) /
                       (1000 * 60 * 60 * 24)
-                  )
+                  ) +
+                    1 <
+                    1) ||
+                Math.floor(
+                  (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                    (1000 * 60 * 60 * 24)
+                ) +
+                  1 ===
+                  1
               "
             >
               <v-card-text class="red--text">
@@ -54,10 +63,24 @@
                   Math.floor(
                     (new Date(todoItem.date).getTime() - new Date().getTime()) /
                       (1000 * 60 * 60 * 24)
-                  )
+                  ) + 1
                 }}
               </v-card-text>
             </v-col>
+            <v-col
+              cols="5"
+              v-if="
+                0 ===
+                Math.floor(
+                  (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                    (1000 * 60 * 60 * 24)
+                ) +
+                  1
+              "
+            >
+              <v-card-text class="black--text"> D-day </v-card-text>
+            </v-col>
+
             <v-col
               cols="5"
               v-if="
@@ -65,7 +88,8 @@
                 Math.floor(
                   (new Date(todoItem.date).getTime() - new Date().getTime()) /
                     (1000 * 60 * 60 * 24)
-                )
+                ) +
+                  1
               "
             >
               <v-card-text class="green--text">
@@ -73,7 +97,7 @@
                   Math.floor(
                     (new Date(todoItem.date).getTime() - new Date().getTime()) /
                       (1000 * 60 * 60 * 24)
-                  )
+                  ) + 1
                 }}
               </v-card-text>
             </v-col>
@@ -83,12 +107,15 @@
                 Math.floor(
                   (new Date(todoItem.date).getTime() - new Date().getTime()) /
                     (1000 * 60 * 60 * 24)
-                ) <= 3 &&
+                ) +
+                  1 <=
+                  3 &&
                 2 <=
                   Math.floor(
                     (new Date(todoItem.date).getTime() - new Date().getTime()) /
                       (1000 * 60 * 60 * 24)
-                  )
+                  ) +
+                    1
               "
             >
               <v-card-text class="yellow--text">
@@ -96,7 +123,7 @@
                   Math.floor(
                     (new Date(todoItem.date).getTime() - new Date().getTime()) /
                       (1000 * 60 * 60 * 24)
-                  )
+                  ) + 1
                 }}
               </v-card-text>
             </v-col>
@@ -170,15 +197,24 @@
             <v-col
               cols="5"
               v-if="
-                Math.floor(
+                (Math.floor(
                   (new Date(todoItem.date).getTime() - new Date().getTime()) /
                     (1000 * 60 * 60 * 24)
-                ) <= 1 &&
-                0 <
+                ) +
+                  1 !=
+                  0 &&
                   Math.floor(
                     (new Date(todoItem.date).getTime() - new Date().getTime()) /
                       (1000 * 60 * 60 * 24)
-                  )
+                  ) +
+                    1 <
+                    1) ||
+                Math.floor(
+                  (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                    (1000 * 60 * 60 * 24)
+                ) +
+                  1 ===
+                  1
               "
             >
               <v-card-text class="red--text">
@@ -186,10 +222,24 @@
                   Math.floor(
                     (new Date(todoItem.date).getTime() - new Date().getTime()) /
                       (1000 * 60 * 60 * 24)
-                  )
+                  ) + 1
                 }}
               </v-card-text>
             </v-col>
+            <v-col
+              cols="5"
+              v-if="
+                0 ===
+                Math.floor(
+                  (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                    (1000 * 60 * 60 * 24)
+                ) +
+                  1
+              "
+            >
+              <v-card-text class="black--text"> D-day </v-card-text>
+            </v-col>
+
             <v-col
               cols="5"
               v-if="
@@ -197,7 +247,8 @@
                 Math.floor(
                   (new Date(todoItem.date).getTime() - new Date().getTime()) /
                     (1000 * 60 * 60 * 24)
-                )
+                ) +
+                  1
               "
             >
               <v-card-text class="green--text">
@@ -205,7 +256,7 @@
                   Math.floor(
                     (new Date(todoItem.date).getTime() - new Date().getTime()) /
                       (1000 * 60 * 60 * 24)
-                  )
+                  ) + 1
                 }}
               </v-card-text>
             </v-col>
@@ -215,12 +266,15 @@
                 Math.floor(
                   (new Date(todoItem.date).getTime() - new Date().getTime()) /
                     (1000 * 60 * 60 * 24)
-                ) <= 3 &&
+                ) +
+                  1 <=
+                  3 &&
                 2 <=
                   Math.floor(
                     (new Date(todoItem.date).getTime() - new Date().getTime()) /
                       (1000 * 60 * 60 * 24)
-                  )
+                  ) +
+                    1
               "
             >
               <v-card-text class="yellow--text">
@@ -228,7 +282,7 @@
                   Math.floor(
                     (new Date(todoItem.date).getTime() - new Date().getTime()) /
                       (1000 * 60 * 60 * 24)
-                  )
+                  ) + 1
                 }}
               </v-card-text>
             </v-col>
