@@ -142,13 +142,8 @@ export default {
     },
 
     editTodo(todoItem) {
-      // console.log(todoItem.title)
-      // console.log(todoItem.pastTitle)
-      // console.log(localStorage.getItem(todoItem.pastTitle))
       localStorage.removeItem(todoItem.pastTitle)
       todoItem.pastTitle = todoItem.title
-      console.log(todoItem)
-      // localStorage.removeItem((localStorage.getItem(todoItem.pastTitle)).pastTitle);
       localStorage.setItem(todoItem.title, JSON.stringify(todoItem));
     },
 

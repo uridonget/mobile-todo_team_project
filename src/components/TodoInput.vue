@@ -49,7 +49,7 @@
       <v-card-actions class="pt-3" >
         <v-btn  @click="clearInput" color="green" outlined> Clear </v-btn>
         <v-spacer></v-spacer>
-         <v-btn @click="setCategory" color="green" outlined> category </v-btn>
+         <!-- <v-btn @click="setCategory" color="green" outlined> category </v-btn> -->
         <v-btn @click="addTodo" color="green" outlined> 등록 </v-btn>
       </v-card-actions>
 
