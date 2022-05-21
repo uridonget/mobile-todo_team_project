@@ -1,49 +1,40 @@
 <template>
   <div class="login">
-    <h3>Login</h3>
-    <input type="text" placeholder="email" /><br />
-    <input type="password" placeholder="password" /><br />
-    <button v-on:click="login">로그인</button>
-    <p>
-      만약 계정이 없다면, <router-link to="/signup">회원가입</router-link>을
-      먼저 진행해주세요!
-    </p>
+    <v-container>
+      <h2>Login</h2>
+
+      <br /><br />
+      <v-spacer></v-spacer>
+      <v-text-field outlined color="#008000" label="email"></v-text-field>
+      <v-text-field outlined color="#008000" label="password"></v-text-field>
+      <v-divider></v-divider>
+      <v-card-actions class="pt-3">
+        <v-btn @click="idmake" color="#008000" outlined width="80">
+          회원가입
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn t @click="login" color="#008000" outlined width="80">
+          로그인
+        </v-btn>
+      </v-card-actions>
+    </v-container>
   </div>
 </template>
 <script>
-  export default {
-    name: 'login',
-    data() {
-      return {
-      }
+export default {
+  name: "login",
+  data() {
+    return {};
+  },
+  methods: {
+    login() {
+      this.$router.replace("hello");
     },
-    methods: {
-      login() {
-        this.$router.replace('hello')
-      }
-    }
-  }
+    idmake() {
+      this.$router.replace("idmake");
+    },
+  },
+};
 </script>
-<style scoped>
-.login {
-  margin-top: 40px;
-}
-input {
-  margin: 10px 0;
-  width: 20%;
-  padding: 15px;
-}
-button {
-  margin-top: 20px;
-  width: 10%;
-  cursor: pointer;
-}
-p {
-  margin-top: 40px;
-  font-size: 15px;
-}
-p a {
-  text-decoration: underline;
-  cursor: pointer;
-}
+<style >
 </style>

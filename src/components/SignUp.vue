@@ -1,45 +1,42 @@
 <template>
   <div class="signup">
-    <p>회원가입</p>
-    <input type="text" placeholder="email"><br>
-    <input type="password" placeholder="password"><br>
-    <button>가입하기</button>
-    <span>또는 <router-link to="/login">로그인</router-link>으로 돌아가기</span>
+    <v-container>
+      <h2>Sign Up</h2>
+
+      <br /><br />
+      <v-spacer></v-spacer>
+      <v-text-field outlined color="#008000" label="email"></v-text-field>
+      <v-text-field outlined color="#008000" label="password"></v-text-field>
+      <v-divider></v-divider>
+      <v-card-actions class="pt-3">
+        <v-btn @click="realidmake" color="#008000" outlined width="80">
+          가입하기
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn t @click="relogin" color="#008000" outlined width="170">
+          로그인으로 돌아가기
+        </v-btn>
+      </v-card-actions>
+    </v-container>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'signUp',
-    data() {
-      return {
-      }
+export default {
+  name: "signUp",
+  data() {
+    return {};
+  },
+  methods: {
+    relogin() {
+      this.$router.replace("login");
     },
-    methods: {}
-  }
+    realidmake() {
+      this.$router.replace("login");
+    },
+  },
+};
 </script>
 
-<style scoped>
-  .signUp {
-    margin-top: 40px;
-  }
-  input {
-    margin: 10px 0;
-    width: 20%;
-    padding: 15px;
-  }
-  button {
-    margin-top: 20px;
-    width: 10%;
-    cursor: pointer;
-  }
-  p {
-    margin-top: 40px;
-    font-size: 20px;
-  }
-  span {
-    display: block;
-    margin-top: 20px;
-    font-size: 15px;
-  }
-</style>
+
+ 

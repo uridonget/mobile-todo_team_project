@@ -26,5 +26,8 @@ export default new Router({
   },
   {path: '/signup',
   name: 'SignUp',
+  component: SignUp},
+  {path: '/idmake',
+  name: 'SignUp',
   component: SignUp}]
 })
