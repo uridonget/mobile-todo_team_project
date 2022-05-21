@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
-import App from 'App'
+import Login from '@/components/Login'
+import first from '@/components/first'
+import SignUp from '@/components/SignUp'
 
 Vue.use(Router)
 
@@ -9,20 +10,21 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/hello',
-      name: 'App',
-      component: App
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: ()=> import('@/Login.vue'),
-
-    },
-    {
-      path: '/signup',
-      name: 'SignUp',
-      component: ()=> import('@/SignUp.vue')
-    }
-  ]
+    path: '/',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/hello',
+    name: 'first',
+    component: first
+  },
+  {path: '/signup',
+  name: 'SignUp',
+  component: SignUp}]
 })
