@@ -1,34 +1,5 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app>
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="text-h6"> Category </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-list>
-        <v-list-group
-          v-for="item in items"
-          :key="item.title"
-          v-model="item.active"
-          :prepend-icon="item.action"
-          no-action
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title v-text="item.title"></v-list-item-title>
-            </v-list-item-content>
-          </template>
-
-          <v-list-item v-for="child in item.items" :key="child.title">
-            <v-list-item-content>
-              <v-list-item-title v-text="child.title"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-group>
-      </v-list>
-    </v-navigation-drawer>
 
     <v-app-bar
       app
@@ -82,7 +53,7 @@
 
 <script>
 import TodoFooter from "./components/TodoFooter.vue";
-
+import TodoHeader from "./components/TodoHeader.vue";
 import TodoList from "./components/TodoList.vue";
 import TodoInput from "./components/TodoInput.vue";
 
@@ -92,7 +63,7 @@ export default {
   components: {
     TodoList,
     TodoFooter,
-
+    TodoHeader,
     TodoInput,
   },
 
@@ -102,13 +73,6 @@ export default {
     drawer: null,
     todoItems: [],
     statuses: ["할 일", "진행 중", "완료"],
-    items: [
-      {
-        action: "mdi-ticket",
-        items: [{ title: "List item" }],
-        title: "Attractions",
-      },
-    ],
   }),
 
   methods: {
