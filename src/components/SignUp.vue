@@ -22,17 +22,33 @@
 </template>
 
 <script>
+
+
 export default {
   name: "signUp",
   data() {
-    return {};
+    return {
+      email: "",
+      password: "",
+    };
   },
   methods: {
     relogin() {
       this.$router.replace("login");
     },
     realidmake() {
-      this.$router.replace("login");
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then(
+          function (user) {
+            alert("회원가입 완료!");
+            this.$router.replace("login");
+          },
+          function (err) {
+            alert("에러 : " + err.message);
+          }
+        );
     },
   },
 };

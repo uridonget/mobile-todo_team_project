@@ -20,15 +20,30 @@
     </v-container>
   </div>
 </template>
+
 <script>
 export default {
   name: "login",
   data() {
-    return {};
+    return {
+      email: "",
+      password: "",
+    };
   },
   methods: {
     login() {
-      this.$router.replace("hello");
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(
+          function (user) {
+            alert("로그인 완료!");
+            this.$router.replace("hello");
+          },
+          function (err) {
+            alert("에러 : " + err.message);
+          }
+        );
     },
     idmake() {
       this.$router.replace("idmake");
