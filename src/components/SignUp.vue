@@ -22,16 +22,14 @@
 </template>
 
 <script>
-import methods from "/methods.vue";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 export default {
-  components: {
-    methods,
-  },
   name: "signUp",
   data() {
     return {
       email: "",
+      auth: getAuth(),
       password: "",
     };
   },
@@ -40,18 +38,15 @@ export default {
       this.$router.replace("login");
     },
     realidmake() {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(this.email, this.password)
-        .then(
-          function (user) {
-            alert("회원가입 완료!");
-            this.$router.replace("login");
-          },
-          function (err) {
-            alert("에러 : " + err.message);
-          }
-        );
+      createUserWithEmailAndPassword(this.auth, this.email, this.password)
+        .then((userCredential) => {
+          var user = userCredential.user;
+          alert("회원가입 완료!");
+          this.$router.replace("login");
+        })
+        .catch((error)  => {
+          alert("에러 : " + err.message);
+        });
     },
   },
 };

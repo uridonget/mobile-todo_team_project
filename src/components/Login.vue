@@ -22,28 +22,29 @@
 </template>
 
 <script>
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
 export default {
   name: "login",
   data() {
     return {
       email: "",
+      auth: getAuth(),
       password: "",
+      name: "",
     };
   },
   methods: {
     login() {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
-        .then(
-          function (user) {
-            alert("로그인 완료!");
-            this.$router.replace("hello");
-          },
-          function (err) {
-            alert("에러 : " + err.message);
-          }
-        );
+      signInWithEmailAndPassword(auth, this.email, this.password)
+        .then((userCredential) => {
+          this.name = userCredential.user.email;
+          alert("로그인 완료!");
+          this.$router.replace("hello");
+        })
+        .catch((error) => {
+          alert("에러 : " + err.message);
+        });
     },
     idmake() {
       this.$router.replace("idmake");
