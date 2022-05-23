@@ -58,7 +58,14 @@
         </v-row>
 
         <v-row>
-          <v-toolbar-title>Just Do it! </v-toolbar-title>
+          <v-col>
+            <v-toolbar-title>Just Do it! </v-toolbar-title>
+          </v-col>
+          <v-col>
+            <v-btn @click="writeUserData">
+              테스트
+            </v-btn>
+          </v-col>
         </v-row>
       </v-col>
     </v-app-bar>
@@ -82,9 +89,17 @@
 
 <script>
 import TodoFooter from "./components/TodoFooter.vue";
-
 import TodoList from "./components/TodoList.vue";
 import TodoInput from "./components/TodoInput.vue";
+import { getDatabase, ref, set } from "firebase/database";
+
+
+
+
+
+
+
+
 
 export default {
   name: "App",
@@ -110,19 +125,44 @@ export default {
       },
     ],
   }),
+  mounted(){
+    console.log(this.$firebase)
+    console.log("테스트")
+
+  },
 
   methods: {
+    writeUserData() {
+      console.log(this.$firebase)
+      // const db = getDatabase();
+      // set(ref(db, 'users/' + 'aaa2a'), {
+      //   username: 'baby2',
+      //   email: 'email',
+      //   profile_picture : 'image?'
+      // });
+    },
 
 
-
+    // save(){
+    //   console.log('save@@@')
+    //   this.$firebase.database().ref().child('abcd').set({
+    //     title: 'abcd', text: 'tttt'
+    //   })
+    // },
+    
     clearAll() {
       localStorage.clear();
       this.todoItems = [];
     },
-    addCategory(){},
+
     addTodo(todoItem) {
       localStorage.setItem(todoItem.title, JSON.stringify(todoItem));
       this.todoItems.push(todoItem);
+      const db = getDatabase();
+      set(ref(db, 'users/' + '유저22/' + '입력한 시간'), {
+        title: todoItem.title,
+        todoItem: todoItem,
+      });
     },
 
     removeTodo(todoItem, index) {
@@ -130,10 +170,7 @@ export default {
       this.todoItems.splice(index, 1);
     },
 
-    getFixed(todoItem, index){
-      console.log(todoItem)
-      console.log(index)
-      console.log(todoItem.getFixedOrNot)
+    getFixed(todoItem){
       if(todoItem.getFixedOrNot === 'TRUE')
       todoItem.getFixedOrNot = 'FALSE'
       else
