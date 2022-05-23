@@ -22,9 +22,12 @@
 </template>
 
 <script>
-
+import methods from "/methods.vue";
 
 export default {
+  components: {
+    methods,
+  },
   name: "signUp",
   data() {
     return {
