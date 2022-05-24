@@ -169,24 +169,22 @@ export default {
       this.todoItems.push(todoItem);
       const db = getDatabase();
       const userinfo = JSON.parse(localStorage.getItem('userInfo'))
-      // const nowTime = new Date().getTime()
       const nowTime = todoItem.nowTime
-      console.log(nowTime)
-      console.log('여기?')
-      console.log(userinfo)
-      console.log('정말?')
-      // set(ref(db, 'users/' + userinfo.uid), {
-      //   title: todoItem.title,
-      //   todoItem: todoItem,
-      // });
       set(ref(db, 'users/' + userinfo.uid + '/' + nowTime), { 
-        todoItem: todoItem,
+        todoItem,
       });
     },
 
     removeTodo(todoItem, index) {
       localStorage.removeItem(todoItem.title);
       this.todoItems.splice(index, 1);
+      const db = getDatabase();
+      const userinfo = JSON.parse(localStorage.getItem('userInfo'))
+      const nowTime = todoItem.nowTime
+      set(ref(db, 'users/' + userinfo.uid + '/' + nowTime), { 
+        todoItem: null,
+      });
+      
     },
 
     getFixed(todoItem){
@@ -201,6 +199,12 @@ export default {
       localStorage.removeItem(todoItem.pastTitle)
       todoItem.pastTitle = todoItem.title
       localStorage.setItem(todoItem.title, JSON.stringify(todoItem));
+      const db = getDatabase();
+      const userinfo = JSON.parse(localStorage.getItem('userInfo'))
+      const nowTime = todoItem.nowTime
+      set(ref(db, 'users/' + userinfo.uid + '/' + nowTime), { 
+        todoItem,
+      });
     },
 
     changeStatus(index) {
