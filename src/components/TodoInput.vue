@@ -84,6 +84,7 @@ export default {
     addTodo() {
       if (this.newTodoItem !== "") {
         const value = {
+          nowTime: new Date().getTime(),
           title: this.newTodoItem,
           detail: this.newTodoItemDetail,
           date: this.newDate,

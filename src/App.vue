@@ -62,16 +62,20 @@
             <v-toolbar-title>Just Do it! </v-toolbar-title>
           </v-col>
           <v-col>
-            <v-btn @click="writeUserData">
+            <v-card>
               테스트
-            </v-btn>
+            </v-card>
           </v-col>
         </v-row>
       </v-col>
     </v-app-bar>
 
     <v-main>
-      <router-view></router-view>
+      <router-view>
+        <!--  -->
+        <!-- <TodoLogin v-on:userInfoUpdate="userInfoUpdate"></TodoLogin> -->
+        <!--  -->
+      </router-view>
       <TodoInput v-on:addTodo="addTodo"></TodoInput>
       <TodoList
         v-bind:propsdata="todoItems"
@@ -92,6 +96,9 @@ import TodoFooter from "./components/TodoFooter.vue";
 import TodoList from "./components/TodoList.vue";
 import TodoInput from "./components/TodoInput.vue";
 import { getDatabase, ref, set } from "firebase/database";
+// import TodoLogin from "./components/TodoLogin.vue";
+
+
 
 
 
@@ -107,8 +114,10 @@ export default {
   components: {
     TodoList,
     TodoFooter,
-
     TodoInput,
+    // TodoLogin,
+
+    
   },
 
   data: () => ({
@@ -116,6 +125,7 @@ export default {
     search: null,
     drawer: null,
     todoItems: [],
+    // userInfo: null,
     statuses: ["할 일", "진행 중", "완료"],
     items: [
       {
@@ -142,12 +152,11 @@ export default {
       // });
     },
 
+    // userInfoUpdate(userInfo){
+    //   console.log("이거야?")
+    //   console.log(userInfo)
+    //   console.log("된거야?")
 
-    // save(){
-    //   console.log('save@@@')
-    //   this.$firebase.database().ref().child('abcd').set({
-    //     title: 'abcd', text: 'tttt'
-    //   })
     // },
     
     clearAll() {
@@ -159,8 +168,18 @@ export default {
       localStorage.setItem(todoItem.title, JSON.stringify(todoItem));
       this.todoItems.push(todoItem);
       const db = getDatabase();
-      set(ref(db, 'users/' + '유저22/' + '입력한 시간'), {
-        title: todoItem.title,
+      const userinfo = JSON.parse(localStorage.getItem('userInfo'))
+      // const nowTime = new Date().getTime()
+      const nowTime = todoItem.nowTime
+      console.log(nowTime)
+      console.log('여기?')
+      console.log(userinfo)
+      console.log('정말?')
+      // set(ref(db, 'users/' + userinfo.uid), {
+      //   title: todoItem.title,
+      //   todoItem: todoItem,
+      // });
+      set(ref(db, 'users/' + userinfo.uid + '/' + nowTime), { 
         todoItem: todoItem,
       });
     },
