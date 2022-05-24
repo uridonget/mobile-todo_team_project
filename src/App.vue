@@ -62,9 +62,9 @@
             <v-toolbar-title>Just Do it! </v-toolbar-title>
           </v-col>
           <v-col>
-            <v-card>
+            <v-btn @click="userLogin">
               테스트
-            </v-card>
+            </v-btn>
           </v-col>
         </v-row>
       </v-col>
@@ -72,10 +72,9 @@
 
     <v-main>
       <router-view>
-        <!--  -->
-        <!-- <TodoLogin v-on:userInfoUpdate="userInfoUpdate"></TodoLogin> -->
-        <!--  -->
+        <TodoLogin v-on:testStone="testStone"></TodoLogin>   
       </router-view>
+      
       <TodoInput v-on:addTodo="addTodo"></TodoInput>
       <TodoList
         v-bind:propsdata="todoItems"
@@ -95,13 +94,7 @@
 import TodoFooter from "./components/TodoFooter.vue";
 import TodoList from "./components/TodoList.vue";
 import TodoInput from "./components/TodoInput.vue";
-import { getDatabase, ref, set } from "firebase/database";
-// import TodoLogin from "./components/TodoLogin.vue";
-
-
-
-
-
+import { getDatabase, ref, set, onValue } from "firebase/database";
 
 
 
@@ -115,7 +108,8 @@ export default {
     TodoList,
     TodoFooter,
     TodoInput,
-    // TodoLogin,
+    
+    
 
     
   },
@@ -137,31 +131,25 @@ export default {
   }),
   mounted(){
     console.log(this.$firebase)
-    console.log("테스트")
+    console.log("3")
 
   },
 
   methods: {
-    writeUserData() {
-      console.log(this.$firebase)
-      // const db = getDatabase();
-      // set(ref(db, 'users/' + 'aaa2a'), {
-      //   username: 'baby2',
-      //   email: 'email',
-      //   profile_picture : 'image?'
-      // });
+
+    testStone() {
+      console.log("돌을 던지자")
     },
-
-    // userInfoUpdate(userInfo){
-    //   console.log("이거야?")
-    //   console.log(userInfo)
-    //   console.log("된거야?")
-
-    // },
     
     clearAll() {
       localStorage.clear();
       this.todoItems = [];
+      const db = getDatabase();
+      const userinfo = JSON.parse(localStorage.getItem('userInfo'))
+      set(ref(db, 'users/' + userinfo.uid), { 
+        
+      });
+
     },
 
     addTodo(todoItem) {
@@ -193,6 +181,12 @@ export default {
       else
       todoItem.getFixedOrNot = 'TRUE'
       localStorage.setItem(todoItem.title, JSON.stringify(todoItem))
+      const db = getDatabase();
+      const userinfo = JSON.parse(localStorage.getItem('userInfo'))
+      const nowTime = todoItem.nowTime
+      set(ref(db, 'users/' + userinfo.uid + '/' + nowTime), { 
+        todoItem,
+      });
     },
 
     editTodo(todoItem) {
@@ -213,11 +207,33 @@ export default {
       this.todoItems[index].status = this.statuses[newIndex];
     },
 
+    userLogin(){
+      const userinfo = JSON.parse(localStorage.getItem('userInfo'))
+      console.log(userinfo.uid);
+      const db = getDatabase();
+      const infoRef = ref(db, 'users/' + userinfo.uid);
+      onValue(infoRef, (snapshot) => {
+        const data = snapshot.val();
+        const dataNum = Object.keys(data).length
+        if (dataNum > 0){
+          for (var i = 0; i < dataNum; i++){
+            this.todoItems.push((Object.values(data)[i]).todoItem)
+          }
+        }
+      })
+
+      
+
+    },
+
 
 
 
   },
   created() {
+    console.log('1')
+    const userinfo = JSON.parse(localStorage.getItem('userInfo'))
+    console.log(userinfo.uid)
     // let year = today.getFullYear();
     // console.log(year)
     if (localStorage.length > 0) {
