@@ -13,8 +13,15 @@
       height="100"
     >
       <v-col>
-        <v-row>
-          <v-btn large @click="hello"> mdi-calendar </v-btn>
+        <v-row >
+          <v-btn depressed small
+        class="ma-2"
+        color="green"
+      >
+        <v-icon large >
+          mdi-calendar
+        </v-icon>
+      </v-btn>
 
           <v-spacer></v-spacer>
          
