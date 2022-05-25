@@ -96,7 +96,7 @@
 import TodoFooter from "./TodoFooter.vue";
 import TodoList from "./TodoList.vue";
 import TodoInput from "./TodoInput.vue";
-import { getDatabase, ref, set, onValue } from "firebase/database";
+import { getDatabase, ref, set, child, get } from "firebase/database";
 
 
 
@@ -143,32 +143,54 @@ export default {
     //   console.log("돌을 던지자")
     // },
     
-    clearAll() {
-      // localStorage.clear();
+    // clearAll() {
+    //   localStorage.clear();
+    //   this.todoItems = [];
+    //   const userinfo = JSON.parse(localStorage.getItem('userInfo'))
+    //   console.log(userinfo.uid);
+    //   const db = getDatabase();
+    //   const infoRef = ref(db, 'users/' + userinfo.uid);
+      
+      // get(infoRef, (snapshot) => {
+      //   const data = snapshot.val();
+      //   const dataNum = Object.keys(data).length
+      //   if (dataNum > 0){
+      //     for (var i = 0; i < dataNum; i++){
+      //       console.log((Object.values(data)[i]).todoItem.nowTime)
+      //       set(ref(db, 'users/' + userinfo.uid + '/' + ((Object.values(data)[i]).todoItem.nowTime)), { 
+      //         todoItem: null,
+      // });            
+      //     }
+      //   }
+      // })
+    // },
+
+    clearAll(){
       this.todoItems = [];
       const userinfo = JSON.parse(localStorage.getItem('userInfo'))
-      console.log(userinfo.uid);
       const db = getDatabase();
-      const infoRef = ref(db, 'users/' + userinfo.uid);
-      onValue(infoRef, (snapshot) => {
-        const data = snapshot.val();
-        const dataNum = Object.keys(data).length
-        if (dataNum > 0){
+      const dbRef = ref(getDatabase());
+      get(child(dbRef, `users/` + userinfo.uid)).then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const dataNum = Object.keys(data).length
           for (var i = 0; i < dataNum; i++){
-            console.log((Object.values(data)[i]).todoItem.nowTime)
-            set(ref(db, 'users/' + userinfo.uid + '/' + ((Object.values(data)[i]).todoItem.nowTime)), { 
+            // this.todoItems.push((Object.values(data)[i]).todoItem)
+            set(ref(db, 'users/' + userinfo.uid + '/' + ((Object.values(data)[i]).todoItem.nowTime)),{
               todoItem: null,
-      });            
+            });
           }
+        } else {
+          console.log("No data available");
         }
-      })
-
-
-
+      }).catch((error) => {
+        console.error(error);
+      });
     },
 
     addTodo(todoItem) {
       // localStorage.setItem(todoItem.title, JSON.stringify(todoItem));
+      console.log('todoItem: ',todoItem);
       this.todoItems.push(todoItem);
       const db = getDatabase();
       const userinfo = JSON.parse(localStorage.getItem('userInfo'))
@@ -176,6 +198,7 @@ export default {
       set(ref(db, 'users/' + userinfo.uid + '/' + nowTime), { 
         todoItem,
       });
+      console.log('todoItems: ', this.todoItems)
     },
 
     removeTodo(todoItem, index) {
@@ -224,21 +247,20 @@ export default {
 
     userLogin(){
       const userinfo = JSON.parse(localStorage.getItem('userInfo'))
-      // console.log(userinfo.uid);
-      const db = getDatabase();
-      const infoRef = ref(db, 'users/' + userinfo.uid);
-      onValue(infoRef, (snapshot) => {
-        const data = snapshot.val();
-        const dataNum = Object.keys(data).length
-        if (dataNum > 0){
+      const dbRef = ref(getDatabase());
+      get(child(dbRef, `users/` + userinfo.uid)).then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const dataNum = Object.keys(data).length
           for (var i = 0; i < dataNum; i++){
             this.todoItems.push((Object.values(data)[i]).todoItem)
           }
+        } else {
+          console.log("No data available");
         }
-      })
-
-      
-
+      }).catch((error) => {
+        console.error(error);
+      });
     },
 
 

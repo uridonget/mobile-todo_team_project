@@ -1,5 +1,8 @@
 <template>
   <v-container>
+    <v-row>
+      {{ propsdata }}
+    </v-row>
     <v-row class="pt-2">
       <v-bottom-navigation :value="filter" color="green">
         <v-spacer></v-spacer>
