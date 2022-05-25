@@ -1,23 +1,24 @@
 <template>
   <v-main>
     <v-form
-      ><v-container
-        ><v-row>
-          <v-col cols="6" sm="3">
-            <v-text-field v-model="email" label="email"></v-text-field>
-          </v-col>
-          <v-col cols="6" sm="3">
+        ><h2>Welcome</h2>
+         <br /><br />
+          <v-spacer></v-spacer>
+            <v-text-field v-model="email" outlined color='green' label="email"></v-text-field>
             <v-text-field
               v-model="password"
+              outlined color ='green'
               label="Password"
               hint="At least 6 characters"
               counter
             ></v-text-field>
-          </v-col> </v-row></v-container
-    ></v-form>
+        </v-form>
+        <v-card-actions>
     <v-btn outlined @click="addUser"> Signup </v-btn>
-    <v-btn outlined @click="login"> Login </v-btn>
+    <v-btn outlined @click="login" color= 'green' width='80' > Login </v-btn>
     <v-btn @click="testStone">돌을 던지자</v-btn>
+        </v-card-actions>
+      
   </v-main>
 </template>
 
@@ -42,16 +43,12 @@ export default {
     addUser() {
       createUserWithEmailAndPassword(this.auth, this.email, this.password)
         .then((userCredential) => {
-          // Signed in
-          //var user = userCredential.user;
-          this.msg = "loggined as " + userCredential.user.email;                    
+          this.msg = "loggined as " + userCredential.user.email;                  
           // ...
         })
         .catch((error) => {
-          this.msg = error;
-          // var errorCode = error.code;
-          // var errorMessage = error.message;
-          // ..
+           alert("에러 : " + error.message);
+          
         });
     },
     login() {
@@ -59,12 +56,13 @@ export default {
         .then((userCredential) => {
           // Signed in
           console.log(userCredential.user);
-          this.name = userCredential.user.email;   
+          this.name = userCredential.user.email; 
+           alert("로그인 완료!");  
           this.$router.replace('hello')       
           // ...
         })
         .catch((error) => {
-          this.msg = error;
+         alert("에러 : " + error.message);
         });
     },
 
