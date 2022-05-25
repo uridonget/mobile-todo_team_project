@@ -59,7 +59,8 @@ export default {
         .then((userCredential) => {
           // Signed in
           console.log(userCredential.user);
-          this.name = userCredential.user.email;          
+          this.name = userCredential.user.email;   
+          this.$router.replace('hello')       
           // ...
         })
         .catch((error) => {
