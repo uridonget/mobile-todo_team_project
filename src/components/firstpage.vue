@@ -139,23 +139,36 @@ export default {
 
   methods: {
 
-    testStone() {
-      console.log("돌을 던지자")
-    },
+    // testStone() {
+    //   console.log("돌을 던지자")
+    // },
     
     clearAll() {
-      localStorage.clear();
+      // localStorage.clear();
       this.todoItems = [];
-      const db = getDatabase();
       const userinfo = JSON.parse(localStorage.getItem('userInfo'))
-      set(ref(db, 'users/' + userinfo.uid), { 
-        
-      });
+      console.log(userinfo.uid);
+      const db = getDatabase();
+      const infoRef = ref(db, 'users/' + userinfo.uid);
+      onValue(infoRef, (snapshot) => {
+        const data = snapshot.val();
+        const dataNum = Object.keys(data).length
+        if (dataNum > 0){
+          for (var i = 0; i < dataNum; i++){
+            console.log((Object.values(data)[i]).todoItem.nowTime)
+            set(ref(db, 'users/' + userinfo.uid + '/' + ((Object.values(data)[i]).todoItem.nowTime)), { 
+              todoItem: null,
+      });            
+          }
+        }
+      })
+
+
 
     },
 
     addTodo(todoItem) {
-      localStorage.setItem(todoItem.title, JSON.stringify(todoItem));
+      // localStorage.setItem(todoItem.title, JSON.stringify(todoItem));
       this.todoItems.push(todoItem);
       const db = getDatabase();
       const userinfo = JSON.parse(localStorage.getItem('userInfo'))
@@ -166,7 +179,7 @@ export default {
     },
 
     removeTodo(todoItem, index) {
-      localStorage.removeItem(todoItem.title);
+      // localStorage.removeItem(todoItem.title);
       this.todoItems.splice(index, 1);
       const db = getDatabase();
       const userinfo = JSON.parse(localStorage.getItem('userInfo'))
@@ -182,7 +195,7 @@ export default {
       todoItem.getFixedOrNot = 'FALSE'
       else
       todoItem.getFixedOrNot = 'TRUE'
-      localStorage.setItem(todoItem.title, JSON.stringify(todoItem))
+      // localStorage.setItem(todoItem.title, JSON.stringify(todoItem))
       const db = getDatabase();
       const userinfo = JSON.parse(localStorage.getItem('userInfo'))
       const nowTime = todoItem.nowTime
@@ -192,9 +205,9 @@ export default {
     },
 
     editTodo(todoItem) {
-      localStorage.removeItem(todoItem.pastTitle)
+      // localStorage.removeItem(todoItem.pastTitle)
       todoItem.pastTitle = todoItem.title
-      localStorage.setItem(todoItem.title, JSON.stringify(todoItem));
+      // localStorage.setItem(todoItem.title, JSON.stringify(todoItem));
       const db = getDatabase();
       const userinfo = JSON.parse(localStorage.getItem('userInfo'))
       const nowTime = todoItem.nowTime
@@ -211,7 +224,7 @@ export default {
 
     userLogin(){
       const userinfo = JSON.parse(localStorage.getItem('userInfo'))
-      console.log(userinfo.uid);
+      // console.log(userinfo.uid);
       const db = getDatabase();
       const infoRef = ref(db, 'users/' + userinfo.uid);
       onValue(infoRef, (snapshot) => {
@@ -234,17 +247,17 @@ export default {
   },
   created() {
     console.log('1')
-    const userinfo = JSON.parse(localStorage.getItem('userInfo'))
-    console.log(userinfo.uid)
+    // const userinfo = JSON.parse(localStorage.getItem('userInfo'))
+    // console.log(userinfo.uid)
     // let year = today.getFullYear();
     // console.log(year)
-    if (localStorage.length > 0) {
-      for (var i = 0; i < localStorage.length; i++) {
-        this.todoItems.push(
-          JSON.parse(localStorage.getItem(localStorage.key(i)))
-        );
-      }
-    }
+    // if (localStorage.length > 0) {
+    //   for (var i = 0; i < localStorage.length; i++) {
+    //     this.todoItems.push(
+    //       JSON.parse(localStorage.getItem(localStorage.key(i)))
+    //     );
+    //   }
+    // }
   },
 };
 </script>
