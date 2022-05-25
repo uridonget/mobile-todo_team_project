@@ -7,7 +7,7 @@
             <v-text-field v-model="email" outlined color='green' label="email"></v-text-field>
             <v-text-field
               v-model="password"
-              outlined color ='green'
+              outlined color ="green"
               label="Password"
               hint="At least 6 characters"
               counter

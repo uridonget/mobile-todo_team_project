@@ -14,7 +14,7 @@
     >
       <v-col>
         <v-row >
-          <v-btn depressed small
+          <v-btn depressed small @click='calendar'
         class="ma-2"
         color="green"
       >
@@ -107,11 +107,18 @@ export default {
   },
 
   methods: {
-
-    // testStone() {
-    //   console.log("돌을 던지자")
-    // },
-    
+    calendar(){
+      this.$router.replace('cal')
+    },
+    testStone() {
+      console.log("돌을 던지자")
+    },
+        calendar(){
+      this.$router.replace('cal')
+    },
+    //testStone() {
+      //console.log("돌을 던지자")
+    },
     // clearAll() {
     //   localStorage.clear();
     //   this.todoItems = [];
