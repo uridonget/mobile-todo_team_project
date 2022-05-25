@@ -1,35 +1,7 @@
 <template>
 
   <v-app id="app">
-    <v-navigation-drawer v-model="drawer" app>
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="text-h6"> Category </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-list>
-        <v-list-group
-          v-for="item in items"
-          :key="item.title"
-          v-model="item.active"
-          :prepend-icon="item.action"
-          no-action
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title v-text="item.title"></v-list-item-title>
-            </v-list-item-content>
-          </template>
-
-          <v-list-item v-for="child in item.items" :key="child.title">
-            <v-list-item-content>
-              <v-list-item-title v-text="child.title"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-group>
-      </v-list>
-    </v-navigation-drawer>
+   
 
     <v-app-bar
       app
@@ -42,20 +14,10 @@
     >
       <v-col>
         <v-row>
-          <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+          <v-btn large @click="hello"> mdi-calendar </v-btn>
 
           <v-spacer></v-spacer>
-          <v-text-field
-            @blur="searchClosed = true"
-            @focus="searchClosed = false"
-            v-model="search"
-            placeholder="Search"
-            dense
-            clearable
-            prepend-inner-icon="mdi-magnify"
-            class="expanding-search mt-1"
-            :class="{ closed: searchClosed && !search }"
-          ></v-text-field>
+         
         </v-row>
 
         <v-row>
