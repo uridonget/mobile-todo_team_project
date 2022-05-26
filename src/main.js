@@ -6,6 +6,7 @@ import router from './route/router.js'
 import './plugins/firebase'
 
 
+
 Vue.config.productionTip = false
 
 new Vue({

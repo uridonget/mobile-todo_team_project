@@ -7,12 +7,14 @@
       <v-spacer></v-spacer>
       <v-text-field
         v-model="email"
+        dense
         outlined
         color="#4caf50"
         label="email"
       ></v-text-field>
       <v-text-field
         v-model="password"
+        dense
         outlined
         color="#4caf50"
         label="Password"
@@ -26,16 +28,27 @@
       <v-spacer></v-spacer>
       <v-btn outlined @click="login" color="#4caf50"> Login </v-btn>
     </v-card-actions>
+    <v-spacer></v-spacer>
+    <br /><br /><br />
+    <v-card>
+      <v-img 
+      src="https://clipart-library.com/newhp/83-837138_baby-shark-clipart-mama-cute-shark.png">
+    </v-img></v-card>
   </v-main>
 </template>
 
 <script>
+
+
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
+
+
+
 
 export default {
   data() {
@@ -53,7 +66,7 @@ export default {
           // Signed in
           //var user = userCredential.user;
           this.msg = "loggined as " + userCredential.user.email;
-          alert("회원가입 완료!"); 
+          alert("회원가입!");
 
           // ...
         })
@@ -67,12 +80,12 @@ export default {
           // Signed in
           console.log("userCredential.user :", userCredential.user);
           this.name = userCredential.user.email;
-          alert("로그인 완료!"); 
+          alert("로그인 완료!");
           this.$router.replace("Login");
           // ...
         })
         .catch((error) => {
-           alert("에러 : " + error.message);
+          alert("에러 : " + error.message);
         });
     },
   },

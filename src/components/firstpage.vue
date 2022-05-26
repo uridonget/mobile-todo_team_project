@@ -7,23 +7,28 @@
       hide-on-scroll
       prominent
       scroll-target="#scrolling-techniques-10"
-      height="120"
+      height="110"
     >
       <v-col>
         <v-row>
-          
-          <v-btn @click ='caldiary' depressed left= large class="ma-2" color="green">
+          <v-btn
+            @click="caldiary"
+            depressed
+            left="large"
+            class="ma-1"
+            color="green"
+          >
             <v-icon x-large> mdi-calendar-text </v-icon>
           </v-btn>
-         
+
           <v-spacer></v-spacer>
           <v-spacer></v-spacer>
           <v-spacer></v-spacer>
           <v-spacer></v-spacer>
-          
-            <v-btn @click="logOut" depressed right class='ma-2' color ='green'>
-              <v-icon x-large> mdi-logout </v-icon></v-btn>
-          
+
+          <v-btn @click="logOut" depressed right class="ma-1" color="green">
+            <v-icon x-large> mdi-logout </v-icon></v-btn
+          >
         </v-row>
 
         <v-row>
@@ -96,9 +101,8 @@ export default {
   },
 
   methods: {
-    caldiary(){
-      this.$router.replace('caldiary')
-
+    caldiary() {
+      this.$router.replace("caldiary");
     },
     clearAll() {
       this.todoItems = [];

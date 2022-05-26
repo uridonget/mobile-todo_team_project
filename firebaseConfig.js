@@ -6,4 +6,5 @@ export default {
     storageBucket: "todophase2.appspot.com",
     messagingSenderId: "3466766372",
     appId: "1:3466766372:web:679d4ae774e8abaaea90b1"
+    
 }
