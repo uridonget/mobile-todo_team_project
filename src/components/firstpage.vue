@@ -114,21 +114,12 @@ export default {
           if (snapshot.exists()) {
             const data = snapshot.val();
             const dataNum = Object.keys(data).length;
-            for (var i = 0; i < dataNum; i++) {
-              // this.todoItems.push((Object.values(data)[i]).todoItem)
-              set(
-                ref(
-                  db,
-                  "users/" +
-                    userinfo.uid +
-                    "/" +
-                    Object.values(data)[i].todoItem.nowTime
-                ),
-                {
-                  todoItem: null,
-                }
-              );
-            }
+
+
+            set(ref(db,"users/" + userinfo.uid + "/todoList"),{ 
+              todoList: null
+            });
+
           } else {
             console.log("No data available");
           }
@@ -155,12 +146,12 @@ export default {
       const db = getDatabase();
       const userinfo = JSON.parse(localStorage.getItem("userInfo"));
       const nowTime = todoItem.nowTime;
-      set(ref(db, "users/" + userinfo.uid + "/" + nowTime), {
-        todoItem,
-      });
-      // set(ref(db, 'users/' + userinfo.uid + '/todoList/' + nowTime), {
+      // set(ref(db, "users/" + userinfo.uid + "/" + nowTime), {
       //   todoItem,
       // });
+      set(ref(db, 'users/' + userinfo.uid + '/todoList/' + nowTime), {
+        todoItem,
+      });
       console.log("todoItems: ", this.todoItems);
     },
 
@@ -170,7 +161,7 @@ export default {
       const db = getDatabase();
       const userinfo = JSON.parse(localStorage.getItem("userInfo"));
       const nowTime = todoItem.nowTime;
-      set(ref(db, "users/" + userinfo.uid + "/" + nowTime), {
+      set(ref(db, 'users/' + userinfo.uid + '/todoList/' + nowTime), {
         todoItem: null,
       });
     },
@@ -182,7 +173,7 @@ export default {
       const db = getDatabase();
       const userinfo = JSON.parse(localStorage.getItem("userInfo"));
       const nowTime = todoItem.nowTime;
-      set(ref(db, "users/" + userinfo.uid + "/" + nowTime), {
+      set(ref(db, 'users/' + userinfo.uid + '/todoList/' + nowTime), {
         todoItem,
       });
     },
@@ -194,7 +185,7 @@ export default {
       const db = getDatabase();
       const userinfo = JSON.parse(localStorage.getItem("userInfo"));
       const nowTime = todoItem.nowTime;
-      set(ref(db, "users/" + userinfo.uid + "/" + nowTime), {
+      set(ref(db, 'users/' + userinfo.uid + '/todoList/' + nowTime), {
         todoItem,
       });
     },
@@ -208,7 +199,7 @@ export default {
     userLogin() {
       const userinfo = JSON.parse(localStorage.getItem("userInfo"));
       const dbRef = ref(getDatabase());
-      get(child(dbRef, `users/` + userinfo.uid))
+      get(child(dbRef, `users/` + userinfo.uid + '/todoList'))
         .then((snapshot) => {
           if (snapshot.exists()) {
             const data = snapshot.val();
