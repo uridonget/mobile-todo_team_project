@@ -1,22 +1,31 @@
 <template>
   <v-main>
-    <v-form
-      ><v-container
-        ><v-row>
-          <v-col cols="6" sm="3">
-            <v-text-field v-model="email" label="email"></v-text-field>
-          </v-col>
-          <v-col cols="6" sm="3">
-            <v-text-field
-              v-model="password"
-              label="Password"
-              hint="At least 6 characters"
-              counter
-            ></v-text-field>
-          </v-col> </v-row></v-container
-    ></v-form>
-    <v-btn outlined @click="addUser"> Signup </v-btn>
-    <v-btn outlined @click="login"> Login </v-btn>
+    <v-container>
+      <h2 color="#4caf50">Login</h2>
+
+      <br /><br />
+      <v-spacer></v-spacer>
+      <v-text-field
+        v-model="email"
+        outlined
+        color="#4caf50"
+        label="email"
+      ></v-text-field>
+      <v-text-field
+        v-model="password"
+        outlined
+        color="#4caf50"
+        label="Password"
+        hint="At least 6 characters"
+        counter
+      ></v-text-field>
+    </v-container>
+    <v-divider></v-divider>
+    <v-card-actions>
+      <v-btn outlined @click="addUser" color="#4caf50"> Signup </v-btn>
+      <v-spacer></v-spacer>
+      <v-btn outlined @click="login" color="#4caf50"> Login </v-btn>
+    </v-card-actions>
   </v-main>
 </template>
 
@@ -25,7 +34,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  onAuthStateChanged  
+  onAuthStateChanged,
 } from "firebase/auth";
 
 export default {
@@ -43,37 +52,36 @@ export default {
         .then((userCredential) => {
           // Signed in
           //var user = userCredential.user;
-          this.msg = "loggined as " + userCredential.user.email;                    
+          this.msg = "loggined as " + userCredential.user.email;
+          alert("회원가입 완료!"); 
+
           // ...
         })
         .catch((error) => {
-          this.msg = error;
-          // var errorCode = error.code;
-          // var errorMessage = error.message;
-          // ..
+          alert("에러 : " + error.message);
         });
     },
     login() {
       signInWithEmailAndPassword(this.auth, this.email, this.password)
         .then((userCredential) => {
           // Signed in
-          console.log('userCredential.user :',userCredential.user);
-          this.name = userCredential.user.email;   
-          this.$router.replace('Login')       
+          console.log("userCredential.user :", userCredential.user);
+          this.name = userCredential.user.email;
+          alert("로그인 완료!"); 
+          this.$router.replace("Login");
           // ...
         })
         .catch((error) => {
-          this.msg = error;
+           alert("에러 : " + error.message);
         });
     },
-
   },
   beforeCreate() {
     onAuthStateChanged(getAuth(), (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
-        localStorage.setItem("userInfo" ,JSON.stringify(user))
+        localStorage.setItem("userInfo", JSON.stringify(user));
         this.$router.push({ path: "Login" });
 
         // ...
