@@ -10,7 +10,7 @@ const router = new VueRouter({
     routes: [
         { path: '/', component: TodoLogin },
         { path: '/hello', component: firstpage },
-        // { path: '*', component: TodoLogin }
+        { path: '*', component: TodoLogin }
     ]
 })
 

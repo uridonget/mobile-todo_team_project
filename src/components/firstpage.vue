@@ -62,11 +62,11 @@
           <v-col>
             <v-toolbar-title>Just Do it! </v-toolbar-title>
           </v-col>
-          <v-col>
+          <!-- <v-col>
             <v-btn @click="userLogin">
               테스트
             </v-btn>
-          </v-col>
+          </v-col> -->
         </v-row>
       </v-col>
     </v-app-bar>
@@ -269,6 +269,7 @@ export default {
   },
   created() {
     console.log('1')
+    this.userLogin()
     // const userinfo = JSON.parse(localStorage.getItem('userInfo'))
     // console.log(userinfo.uid)
     // let year = today.getFullYear();
