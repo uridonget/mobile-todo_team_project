@@ -13,8 +13,16 @@
       height="100"
     >
       <v-col>
-        <v-row>
-          <v-icon>home</v-icon>
+        
+          <v-row >
+          <v-btn depressed small
+        class="ma-2"
+        color="green"
+      >
+        <v-icon large >
+          mdi-calendar
+        </v-icon>
+      </v-btn>
           <v-spacer></v-spacer>
         </v-row>
 
