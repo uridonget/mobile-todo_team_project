@@ -1,35 +1,7 @@
 <template>
 
   <v-app id="app">
-    <v-navigation-drawer v-model="drawer" app>
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="text-h6"> Category </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
 
-      <v-list>
-        <v-list-group
-          v-for="item in items"
-          :key="item.title"
-          v-model="item.active"
-          :prepend-icon="item.action"
-          no-action
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title v-text="item.title"></v-list-item-title>
-            </v-list-item-content>
-          </template>
-
-          <v-list-item v-for="child in item.items" :key="child.title">
-            <v-list-item-content>
-              <v-list-item-title v-text="child.title"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-group>
-      </v-list>
-    </v-navigation-drawer>
 
     <v-app-bar
       app
@@ -42,20 +14,8 @@
     >
       <v-col>
         <v-row>
-          <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-
+          <v-icon>home</v-icon>
           <v-spacer></v-spacer>
-          <v-text-field
-            @blur="searchClosed = true"
-            @focus="searchClosed = false"
-            v-model="search"
-            placeholder="Search"
-            dense
-            clearable
-            prepend-inner-icon="mdi-magnify"
-            class="expanding-search mt-1"
-            :class="{ closed: searchClosed && !search }"
-          ></v-text-field>
         </v-row>
 
         <v-row>
@@ -138,33 +98,6 @@ export default {
   },
 
   methods: {
-
-    // testStone() {
-    //   console.log("돌을 던지자")
-    // },
-    
-    // clearAll() {
-    //   localStorage.clear();
-    //   this.todoItems = [];
-    //   const userinfo = JSON.parse(localStorage.getItem('userInfo'))
-    //   console.log(userinfo.uid);
-    //   const db = getDatabase();
-    //   const infoRef = ref(db, 'users/' + userinfo.uid);
-      
-      // get(infoRef, (snapshot) => {
-      //   const data = snapshot.val();
-      //   const dataNum = Object.keys(data).length
-      //   if (dataNum > 0){
-      //     for (var i = 0; i < dataNum; i++){
-      //       console.log((Object.values(data)[i]).todoItem.nowTime)
-      //       set(ref(db, 'users/' + userinfo.uid + '/' + ((Object.values(data)[i]).todoItem.nowTime)), { 
-      //         todoItem: null,
-      // });            
-      //     }
-      //   }
-      // })
-    // },
-
     clearAll(){
       this.todoItems = [];
       const userinfo = JSON.parse(localStorage.getItem('userInfo'))
@@ -198,6 +131,9 @@ export default {
       set(ref(db, 'users/' + userinfo.uid + '/' + nowTime), { 
         todoItem,
       });
+      // set(ref(db, 'users/' + userinfo.uid + '/todoList/' + nowTime), { 
+      //   todoItem,
+      // });      
       console.log('todoItems: ', this.todoItems)
     },
 

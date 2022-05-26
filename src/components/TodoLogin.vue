@@ -17,7 +17,6 @@
     ></v-form>
     <v-btn outlined @click="addUser"> Signup </v-btn>
     <v-btn outlined @click="login"> Login </v-btn>
-    <v-btn @click="testStone">돌을 던지자</v-btn>
   </v-main>
 </template>
 
@@ -58,9 +57,9 @@ export default {
       signInWithEmailAndPassword(this.auth, this.email, this.password)
         .then((userCredential) => {
           // Signed in
-          console.log(userCredential.user);
+          console.log('userCredential.user :',userCredential.user);
           this.name = userCredential.user.email;   
-          this.$router.replace('hello')       
+          this.$router.replace('Login')       
           // ...
         })
         .catch((error) => {
@@ -68,30 +67,15 @@ export default {
         });
     },
 
-    // 
-    userLogin() {
-      this.$emit("userLogin");
-    },
-    testStone(){
-      this.$emit("testStone");
-    },
-    throwStone(){
-      console.log("돌")
-    }
-
-    // 
-
   },
   beforeCreate() {
     onAuthStateChanged(getAuth(), (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
-        console.log('2');
         localStorage.setItem("userInfo" ,JSON.stringify(user))
-        this.throwStone();
 
-        this.$router.push({ path: "todo" });
+        this.$router.push({ path: "Login" });
 
         // ...
       } else {
