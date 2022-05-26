@@ -242,7 +242,7 @@ export default {
 
 
 
-  },
+  
   created() {
     console.log('1')
     // const userinfo = JSON.parse(localStorage.getItem('userInfo'))
@@ -256,7 +256,7 @@ export default {
     //     );
     //   }
     // }
-  },
+  }
 };
 </script>
 
