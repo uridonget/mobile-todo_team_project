@@ -30,7 +30,7 @@
             <v-icon x-large> mdi-logout </v-icon></v-btn
           >
         </v-row>
-
+        <v-btn @click ='alarm'>진동</v-btn>
         <v-row>
           <v-col>
             <v-toolbar-title>Just Do it! </v-toolbar-title>
@@ -115,11 +115,9 @@ export default {
             const data = snapshot.val();
             const dataNum = Object.keys(data).length;
 
-
-            set(ref(db,"users/" + userinfo.uid + "/todoList"),{ 
-              todoList: null
+            set(ref(db, "users/" + userinfo.uid + "/todoList"), {
+              todoList: null,
             });
-
           } else {
             console.log("No data available");
           }
@@ -149,7 +147,7 @@ export default {
       // set(ref(db, "users/" + userinfo.uid + "/" + nowTime), {
       //   todoItem,
       // });
-      set(ref(db, 'users/' + userinfo.uid + '/todoList/' + nowTime), {
+      set(ref(db, "users/" + userinfo.uid + "/todoList/" + nowTime), {
         todoItem,
       });
       console.log("todoItems: ", this.todoItems);
@@ -161,7 +159,7 @@ export default {
       const db = getDatabase();
       const userinfo = JSON.parse(localStorage.getItem("userInfo"));
       const nowTime = todoItem.nowTime;
-      set(ref(db, 'users/' + userinfo.uid + '/todoList/' + nowTime), {
+      set(ref(db, "users/" + userinfo.uid + "/todoList/" + nowTime), {
         todoItem: null,
       });
     },
@@ -173,7 +171,7 @@ export default {
       const db = getDatabase();
       const userinfo = JSON.parse(localStorage.getItem("userInfo"));
       const nowTime = todoItem.nowTime;
-      set(ref(db, 'users/' + userinfo.uid + '/todoList/' + nowTime), {
+      set(ref(db, "users/" + userinfo.uid + "/todoList/" + nowTime), {
         todoItem,
       });
     },
@@ -185,7 +183,7 @@ export default {
       const db = getDatabase();
       const userinfo = JSON.parse(localStorage.getItem("userInfo"));
       const nowTime = todoItem.nowTime;
-      set(ref(db, 'users/' + userinfo.uid + '/todoList/' + nowTime), {
+      set(ref(db, "users/" + userinfo.uid + "/todoList/" + nowTime), {
         todoItem,
       });
     },
@@ -199,7 +197,7 @@ export default {
     userLogin() {
       const userinfo = JSON.parse(localStorage.getItem("userInfo"));
       const dbRef = ref(getDatabase());
-      get(child(dbRef, `users/` + userinfo.uid + '/todoList'))
+      get(child(dbRef, `users/` + userinfo.uid + "/todoList"))
         .then((snapshot) => {
           if (snapshot.exists()) {
             const data = snapshot.val();
@@ -215,6 +213,9 @@ export default {
           console.error(error);
         });
     },
+    alarm (){
+      console.log('hi')
+    navigator.vibrate([2000, 500, 2000, 500])}
   },
   created() {
     console.log("1");
