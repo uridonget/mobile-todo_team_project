@@ -24,6 +24,11 @@
         </v-icon>
       </v-btn>
           <v-spacer></v-spacer>
+          <v-col>
+            <v-btn @click="logOut">
+              로그아웃
+            </v-btn>
+          </v-col>
         </v-row>
 
         <v-row>
@@ -65,6 +70,7 @@ import TodoFooter from "./TodoFooter.vue";
 import TodoList from "./TodoList.vue";
 import TodoInput from "./TodoInput.vue";
 import { getDatabase, ref, set, child, get } from "firebase/database";
+import { getAuth, signOut } from "firebase/auth";
 
 
 
@@ -127,6 +133,17 @@ export default {
       }).catch((error) => {
         console.error(error);
       });
+    },
+
+    logOut(){
+      const auth = getAuth();
+      console.log('돌돌돌')
+      signOut(auth).then(() => {
+        // Sign-out successful.
+        this.$router.push({ path: "Logout" });
+        localStorage.removeItem('userInfo');
+      });
+
     },
 
     addTodo(todoItem) {
