@@ -4,6 +4,7 @@ import TodoLogin from '../components/TodoLogin.vue'
 import firstpage from '../components/firstpage.vue'
 import Calendar from '../components/Calendar.vue'
 import TodoDiary from '../components/TodoDiary.vue'
+import DiaryPhoto from '../components/DiaryPhoto.vue'
 
 Vue.use(VueRouter);
 
@@ -17,6 +18,7 @@ const router = new VueRouter({
         { path: '/caldiary', component: Calendar},
         { path: '/goBack', component: firstpage},
         { path: '/goDiary', component: TodoDiary},
+        { path: '/goUpload', component: DiaryPhoto},
         
 
     ]

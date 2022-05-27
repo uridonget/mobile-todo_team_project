@@ -5,20 +5,6 @@
         뒤로가기
       </v-btn>
     </v-row>
-    <v-row>
-      <v-card>
-        <v-img :src=imageURL
-        width="300"
-        height="300">
-        </v-img>
-      </v-card>
-    </v-row>
-    <v-row>
-      <v-btn @click="goUpload">
-        사진 업로드
-      </v-btn>
-    </v-row>
-    <!-- <v-row>
       <picture-input 
         ref="pictureInput" 
         @change="onChange"
@@ -33,36 +19,9 @@
           upload: '<h1>Bummer!</h1>',
         }">
       </picture-input>
-    </v-row> -->
-    <v-row>
-    <v-textarea
-      v-model="diary"
-      placeholder=""
-      v-on:keyup.enter="addDiary"
-      outlined color ='green'
-      label="일기작성"
-      height="100"
-    ></v-textarea>
-    </v-row>
-    <v-btn @click="addDiary">
-      일기 저장
+    <v-btn @click="photoUpload">
+      사진 업로드
     </v-btn>
-    <!-- <v-card>
-      왜 안나오지
-      {{ imageURL }}
-      {{ typeof(imageURL) }}
-
-      
-      <v-img :src=imageURL
-      width="300"
-      height="300">
-      </v-img>
-      
-    </v-card> -->
-
-    
-    
-
   </v-container>
 </template>
 
@@ -100,19 +59,7 @@ export default {
 
     },
 
-    showImg(){
-      const storage = getStorage();
-      const userinfo = JSON.parse(localStorage.getItem("userInfo"));
-      const focus = localStorage.getItem("focusedDate")
-      // const stRef = storageRef(storage, 'users/' + userinfo.uid + '/' + focus)
-      getDownloadURL(storageRef(storage, 'users/' + userinfo.uid + '/' + focus))
-        .then((url) => {
-          console.log(url)
-          this.imageURL = url
-        })
 
-
-    },
 
     onChange(image){
       console.log("새 사진입니다.")
@@ -127,13 +74,7 @@ export default {
     },
     
     goback(){
-      console.log("뒤로가기")
-      localStorage.removeItem("focusedDate");
-      this.$router.replace("caldiary");
-    },
-
-    goUpload(){      
-      this.$router.replace("goUpload");
+      this.$router.replace("goDiary");
     },
 
     addDiary(){
@@ -180,6 +121,7 @@ export default {
         this.num = 0;
         console.log("사진없어용")
       }
+    this.$router.replace("goDiary");
     }
 
   },
