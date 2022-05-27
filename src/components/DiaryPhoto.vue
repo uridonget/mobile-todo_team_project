@@ -1,5 +1,10 @@
 <template>
   <v-container>
+    <v-row>
+      <v-btn @click="goback">
+        뒤로가기
+      </v-btn>
+    </v-row>
       <picture-input 
         ref="pictureInput" 
         @change="onChange"
@@ -14,23 +19,9 @@
           upload: '<h1>Bummer!</h1>',
         }">
       </picture-input>
-    <v-btn @click="addDiary">
-      일기 저장
+    <v-btn @click="photoUpload">
+      사진 업로드
     </v-btn>
-
-    <!-- <v-card>
-      <v-img src=this.image>
-
-      </v-img>
-    </v-card> -->
-    <v-btn @click="showImg">
-      image
-    </v-btn>
-
-
-    
-    
-
   </v-container>
 </template>
 
@@ -62,26 +53,6 @@ export default {
   },
 
   methods: {
-
-    getSrc(imageURL){
-      return  require(imageURL)
-
-    },
-
-    showImg(){
-      const storage = getStorage();
-      const userinfo = JSON.parse(localStorage.getItem("userInfo"));
-      const focus = localStorage.getItem("focusedDate")
-      // const stRef = storageRef(storage, 'users/' + userinfo.uid + '/' + focus)
-      getDownloadURL(storageRef(storage, 'users/' + userinfo.uid + '/' + focus))
-        .then((url) => {
-          console.log(url)
-          this.imageURL = url
-        })
-
-
-    },
-
     onChange(image){
       console.log("새 사진입니다.")
       if(image) {
@@ -95,37 +66,10 @@ export default {
     },
     
     goback(){
-      console.log("뒤로가기")
-      localStorage.removeItem("focusedDate");
-      this.$router.replace("caldiary");
+      this.$router.replace("goDiary");
     },
 
-    addDiary(){
-      this.photoUpload();
-      const db = getDatabase();
-      const userinfo = JSON.parse(localStorage.getItem("userInfo"));
-      set(ref(db, 'users/' + userinfo.uid + '/Diary/' + localStorage.getItem("focusedDate") + '/DiaryTxt'), {
-        diary :this.diary,
-      });
-      console.log('넘버 뭐냐',this.num)
-      // 사진있다
-      if(this.num === 1){
-        console.log("넘버가 1일 때 실행")
-        set(ref(db, 'users/' + userinfo.uid + '/Diary/' + localStorage.getItem("focusedDate") + '/photoExist'), {
-          photoExist: 1,
-        })
-        this.num = 0
-      }
-      // if(this.num = 0){
-        else{
-        console.log("넘버가 0일 때 실행")
-        set(ref(db, 'users/' + userinfo.uid + '/Diary/' + localStorage.getItem("focusedDate") + '/photoExist'), {
-          photoExist: 0,
-        })
-      }
-    
 
-    },
     photoUpload(){
       if(this.image != null){
         console.log("돌을 던져")
@@ -143,6 +87,7 @@ export default {
         this.num = 0;
         console.log("사진없어용")
       }
+    this.$router.replace("goDiary");
     }
 
   },
@@ -167,12 +112,8 @@ export default {
           console.log('이거야?',this.photoNum)
         }
       })
-      
-
-            
-
-
-    },    
+    this.showImg()
+    },
 };
 
 </script>
