@@ -1,14 +1,14 @@
 <template>
   <v-container>
     <v-row>
-      <v-btn @click="goback">
-        뒤로가기
-      </v-btn>
+       <v-btn icon class="ma-3" @click="goback">
+          <v-icon x-large>mdi-chevron-left</v-icon>
+        </v-btn>
     </v-row>
     <v-row>
       <v-card>
         <v-img :src=imageURL
-        width="300"
+        width="400"
         height="300">
         </v-img>
       </v-card>
