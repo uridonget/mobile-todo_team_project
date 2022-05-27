@@ -33,6 +33,7 @@
 
         <v-row>
           <v-col>
+            <v-btn @click="alarm">진동</v-btn>
             <v-toolbar-title>Just Do it! </v-toolbar-title>
           </v-col>
           <!-- <v-col>
@@ -101,121 +102,124 @@ export default {
   },
 
   methods: {
-    caldiary() {
-      this.$router.replace("caldiary");
-    },
-    clearAll() {
-      this.todoItems = [];
-      const userinfo = JSON.parse(localStorage.getItem("userInfo"));
-      const db = getDatabase();
-      const dbRef = ref(getDatabase());
-      get(child(dbRef, `users/` + userinfo.uid))
-        .then((snapshot) => {
-          if (snapshot.exists()) {
-            const data = snapshot.val();
-            const dataNum = Object.keys(data).length;
-
-
-            set(ref(db,"users/" + userinfo.uid + "/todoList"),{ 
-              todoList: null
-            });
-
-          } else {
-            console.log("No data available");
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-
-    logOut() {
-      const auth = getAuth();
-      console.log("돌돌돌");
-      signOut(auth).then(() => {
-        // Sign-out successful.
-        this.$router.push({ path: "Logout" });
-        localStorage.removeItem("userInfo");
-      });
-    },
-
-    addTodo(todoItem) {
-      // localStorage.setItem(todoItem.title, JSON.stringify(todoItem));
-      console.log("todoItem: ", todoItem);
-      this.todoItems.push(todoItem);
-      const db = getDatabase();
-      const userinfo = JSON.parse(localStorage.getItem("userInfo"));
-      const nowTime = todoItem.nowTime;
-      // set(ref(db, "users/" + userinfo.uid + "/" + nowTime), {
-      //   todoItem,
-      // });
-      set(ref(db, 'users/' + userinfo.uid + '/todoList/' + nowTime), {
-        todoItem,
-      });
-      console.log("todoItems: ", this.todoItems);
-    },
-
-    removeTodo(todoItem, index) {
-      // localStorage.removeItem(todoItem.title);
-      this.todoItems.splice(index, 1);
-      const db = getDatabase();
-      const userinfo = JSON.parse(localStorage.getItem("userInfo"));
-      const nowTime = todoItem.nowTime;
-      set(ref(db, 'users/' + userinfo.uid + '/todoList/' + nowTime), {
-        todoItem: null,
-      });
-    },
-
-    getFixed(todoItem) {
-      if (todoItem.getFixedOrNot === "TRUE") todoItem.getFixedOrNot = "FALSE";
-      else todoItem.getFixedOrNot = "TRUE";
-      // localStorage.setItem(todoItem.title, JSON.stringify(todoItem))
-      const db = getDatabase();
-      const userinfo = JSON.parse(localStorage.getItem("userInfo"));
-      const nowTime = todoItem.nowTime;
-      set(ref(db, 'users/' + userinfo.uid + '/todoList/' + nowTime), {
-        todoItem,
-      });
-    },
-
-    editTodo(todoItem) {
-      // localStorage.removeItem(todoItem.pastTitle)
-      todoItem.pastTitle = todoItem.title;
-      // localStorage.setItem(todoItem.title, JSON.stringify(todoItem));
-      const db = getDatabase();
-      const userinfo = JSON.parse(localStorage.getItem("userInfo"));
-      const nowTime = todoItem.nowTime;
-      set(ref(db, 'users/' + userinfo.uid + '/todoList/' + nowTime), {
-        todoItem,
-      });
-    },
-
-    changeStatus(index) {
-      let newIndex = this.statuses.indexOf(this.todoItems[index].status);
-      if (++newIndex > 2) newIndex = 0;
-      this.todoItems[index].status = this.statuses[newIndex];
-    },
-
-    userLogin() {
-      const userinfo = JSON.parse(localStorage.getItem("userInfo"));
-      const dbRef = ref(getDatabase());
-      get(child(dbRef, `users/` + userinfo.uid + '/todoList'))
-        .then((snapshot) => {
-          if (snapshot.exists()) {
-            const data = snapshot.val();
-            const dataNum = Object.keys(data).length;
-            for (var i = 0; i < dataNum; i++) {
-              this.todoItems.push(Object.values(data)[i].todoItem);
-            }
-          } else {
-            console.log("No data available");
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+    alarm() {
+      console.log("hi");
+      navigator.vibrate([2000, 500, 2000, 500]);
     },
   },
+  caldiary() {
+    this.$router.replace("caldiary");
+  },
+  clearAll() {
+    this.todoItems = [];
+    const userinfo = JSON.parse(localStorage.getItem("userInfo"));
+    const db = getDatabase();
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `users/` + userinfo.uid))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const dataNum = Object.keys(data).length;
+
+          set(ref(db, "users/" + userinfo.uid + "/todoList"), {
+            todoList: null,
+          });
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  },
+
+  logOut() {
+    const auth = getAuth();
+    console.log("돌돌돌");
+    signOut(auth).then(() => {
+      // Sign-out successful.
+      this.$router.push({ path: "Logout" });
+      localStorage.removeItem("userInfo");
+    });
+  },
+
+  addTodo(todoItem) {
+    // localStorage.setItem(todoItem.title, JSON.stringify(todoItem));
+    console.log("todoItem: ", todoItem);
+    this.todoItems.push(todoItem);
+    const db = getDatabase();
+    const userinfo = JSON.parse(localStorage.getItem("userInfo"));
+    const nowTime = todoItem.nowTime;
+    // set(ref(db, "users/" + userinfo.uid + "/" + nowTime), {
+    //   todoItem,
+    // });
+    set(ref(db, "users/" + userinfo.uid + "/todoList/" + nowTime), {
+      todoItem,
+    });
+    console.log("todoItems: ", this.todoItems);
+  },
+
+  removeTodo(todoItem, index) {
+    // localStorage.removeItem(todoItem.title);
+    this.todoItems.splice(index, 1);
+    const db = getDatabase();
+    const userinfo = JSON.parse(localStorage.getItem("userInfo"));
+    const nowTime = todoItem.nowTime;
+    set(ref(db, "users/" + userinfo.uid + "/todoList/" + nowTime), {
+      todoItem: null,
+    });
+  },
+
+  getFixed(todoItem) {
+    if (todoItem.getFixedOrNot === "TRUE") todoItem.getFixedOrNot = "FALSE";
+    else todoItem.getFixedOrNot = "TRUE";
+    // localStorage.setItem(todoItem.title, JSON.stringify(todoItem))
+    const db = getDatabase();
+    const userinfo = JSON.parse(localStorage.getItem("userInfo"));
+    const nowTime = todoItem.nowTime;
+    set(ref(db, "users/" + userinfo.uid + "/todoList/" + nowTime), {
+      todoItem,
+    });
+  },
+
+  editTodo(todoItem) {
+    // localStorage.removeItem(todoItem.pastTitle)
+    todoItem.pastTitle = todoItem.title;
+    // localStorage.setItem(todoItem.title, JSON.stringify(todoItem));
+    const db = getDatabase();
+    const userinfo = JSON.parse(localStorage.getItem("userInfo"));
+    const nowTime = todoItem.nowTime;
+    set(ref(db, "users/" + userinfo.uid + "/todoList/" + nowTime), {
+      todoItem,
+    });
+  },
+
+  changeStatus(index) {
+    let newIndex = this.statuses.indexOf(this.todoItems[index].status);
+    if (++newIndex > 2) newIndex = 0;
+    this.todoItems[index].status = this.statuses[newIndex];
+  },
+
+  userLogin() {
+    const userinfo = JSON.parse(localStorage.getItem("userInfo"));
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `users/` + userinfo.uid + "/todoList"))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const dataNum = Object.keys(data).length;
+          for (var i = 0; i < dataNum; i++) {
+            this.todoItems.push(Object.values(data)[i].todoItem);
+          }
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  },
+
   created() {
     console.log("1");
     this.userLogin();
