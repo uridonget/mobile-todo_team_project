@@ -39,6 +39,7 @@
     <v-sheet height="600">
       <v-calendar
         ref="calendar"
+        color="#4caf50"
         v-model="focus"
         :weekdays="weekday"
         @click:date="showEvent(focus)"
@@ -58,7 +59,7 @@ export default {
     type: "month",
     types: ["month", "week", "day"],
     mode: "stack",
-    weekday: [1, 2, 3, 4, 5, 6, 0],
+    weekday: [0,1, 2, 3, 4, 5, 6,],
     weekdays: [{ text: "Mon - Sun", value: [1, 2, 3, 4, 5, 6, 0] }],
     focus: "",
     events: [],
