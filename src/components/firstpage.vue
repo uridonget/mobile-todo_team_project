@@ -106,7 +106,7 @@ export default {
       console.log("hi");
       navigator.vibrate([2000, 500, 2000, 500]);
     },
-  },
+  
   caldiary() {
     this.$router.replace("caldiary");
   },
@@ -235,7 +235,7 @@ export default {
     //   }
     // }
   },
-};
+}};
 </script>
 
 <style lang='sass'>
