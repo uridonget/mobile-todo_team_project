@@ -37,6 +37,7 @@
               <v-btn icon @click="getFixed(todoItem, index)" color='green'>
                 <v-icon>mdi-pin</v-icon>
               </v-btn>
+              
             </v-col>
             <v-col
               cols="5"

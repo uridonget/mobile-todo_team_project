@@ -1,25 +1,22 @@
 <template>
   <div>
+    <br />
     <v-sheet tile height="54" class="d-flex">
-      <v-col>
-        <v-btn icon class="ma-2" @click="goBack">
-          <v-icon>mdi-chevron-left</v-icon>
+      <v-row>
+        <v-btn icon class="ma-3" @click="goBack">
+          <v-icon x-large>mdi-chevron-left</v-icon>
         </v-btn>
-        <!-- <v-select
-          v-model="type"
-          :items="types"
-          dense
-          outlined
-          full-width="False"
-          hide-details
-          class="ma-2"
-          label="type"
-        ></v-select>
         <v-spacer></v-spacer>
-        <v-btn icon class="ma-2" @click="$refs.calendar.next()">
-          <v-icon>mdi-chevron-right</v-icon>
-        </v-btn> -->
-      </v-col>
+       
+        <h2>오늘은 {{dateString}}</h2>
+         <v-spacer></v-spacer>
+        <v-btn icon class="ma-3" @click="$refs.calendar.prev()">
+          <v-icon large>mdi-chevron-left</v-icon>
+        </v-btn>
+        <v-btn icon class="ma-3" @click="$refs.calendar.next()">
+          <v-icon x-large>mdi-chevron-right</v-icon>
+        </v-btn>
+      </v-row>
     </v-sheet>
     <v-spacer></v-spacer>
     <!-- <br /><br />
@@ -36,7 +33,11 @@
   </div>
 </template>
 <script>
+var today = new Date();
 
+var year = today.getFullYear();
+var month = ('0' + (today.getMonth() + 1)).slice(-2);
+var day = ('0' + today.getDate()).slice(-2);
 
 export default {
   data: () => ({
@@ -45,7 +46,7 @@ export default {
     mode: "stack",
     weekday: [1, 2, 3, 4, 5, 6, 0],
     weekdays: [{ text: "Mon - Sun", value: [1, 2, 3, 4, 5, 6, 0] }],
-    value: "",
+    focus: "",
     events: [],
     colors: [
       "blue",
@@ -57,28 +58,27 @@ export default {
       "grey darken-1",
     ],
     names: [],
+    dateString: year + '-' + month  + '-' + day
+    
   }),
 
   methods: {
-    goBack(){
+    goBack() {
       console.log("뒤로가기");
       this.$router.replace("goBack");
-      
     },
 
-    showEvent(focus){
-      console.log(focus)
-      localStorage.setItem("focusedDate", focus)
+    showEvent(focus) {
+      console.log(focus);
+      localStorage.setItem("focusedDate", focus);
       // if( localStorage.length >= 3){
-      // this.$router.replace("goDiary");  
+      // this.$router.replace("goDiary");
       // }
       this.$router.replace("goDiary");
       // else{
       //   this.showEvent(focus)
       // }
-
     },
-
   },
 };
 </script>
