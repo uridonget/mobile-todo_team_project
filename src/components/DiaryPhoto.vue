@@ -53,6 +53,14 @@ export default {
   },
 
   methods: {
+
+    getSrc(imageURL){
+      return  require(imageURL)
+
+    },
+
+
+
     onChange(image){
       console.log("새 사진입니다.")
       if(image) {
@@ -69,7 +77,33 @@ export default {
       this.$router.replace("goDiary");
     },
 
+    addDiary(){
+      this.photoUpload();
+      const db = getDatabase();
+      const userinfo = JSON.parse(localStorage.getItem("userInfo"));
+      set(ref(db, 'users/' + userinfo.uid + '/Diary/' + localStorage.getItem("focusedDate") + '/DiaryTxt'), {
+        diary :this.diary,
+      });
+      console.log('넘버 뭐냐',this.num)
+      // 사진있다
+      if(this.num === 1){
+        console.log("넘버가 1일 때 실행")
+        set(ref(db, 'users/' + userinfo.uid + '/Diary/' + localStorage.getItem("focusedDate") + '/photoExist'), {
+          photoExist: 1,
+        })
+        this.num = 0
+        this.showImg()
+      }
+      // if(this.num = 0){
+        else{
+        console.log("넘버가 0일 때 실행")
+        set(ref(db, 'users/' + userinfo.uid + '/Diary/' + localStorage.getItem("focusedDate") + '/photoExist'), {
+          photoExist: 0,
+        })
+      }
+    
 
+    },
     photoUpload(){
       if(this.image != null){
         console.log("돌을 던져")
