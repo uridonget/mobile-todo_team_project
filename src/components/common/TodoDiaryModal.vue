@@ -1,17 +1,5 @@
 <template>
   <v-container>
-    <v-row>
-      <v-btn @click="goback">
-        뒤로가기
-      </v-btn>
-    </v-row>
-    <v-row>
-      <v-img :src=imageURL
-      width="200"
-      height="200">
-      </v-img>
-    </v-row>
-    <v-row>
       <picture-input 
         ref="pictureInput" 
         @change="onChange"
@@ -26,17 +14,6 @@
           upload: '<h1>Bummer!</h1>',
         }">
       </picture-input>
-    </v-row>
-    <v-row>
-    <v-textarea
-      v-model="diary"
-      placeholder=""
-      v-on:keyup.enter="addDiary"
-      outlined color ='green'
-      label="일기작성"
-      height="100"
-    ></v-textarea>
-    </v-row>
     <v-btn @click="addDiary">
       일기 저장
     </v-btn>
@@ -49,18 +26,7 @@
     <v-btn @click="showImg">
       image
     </v-btn>
-    <v-card>
-      왜 안나오지
-      {{ imageURL }}
-      {{ typeof(imageURL) }}
 
-      
-      <v-img :src=imageURL
-      width="300"
-      height="300">
-      </v-img>
-      
-    </v-card>
 
     
     
