@@ -1,5 +1,5 @@
 <template>
-  <v-main>
+  <v-main >
     <v-container>
       <h2 color="#4caf50">Login</h2>
 
@@ -29,15 +29,17 @@
       <v-btn outlined @click="login" color="#4caf50"> Login </v-btn>
     </v-card-actions>
     <v-spacer></v-spacer>
-    <br /><br /><br />
+    <br />
     <v-card>
       <v-img 
-      src="https://clipart-library.com/newhp/83-837138_baby-shark-clipart-mama-cute-shark.png">
+      src="https://c.tenor.com/-fW-Mhg-baoAAAAi/shark-swim.gif">
     </v-img></v-card>
   </v-main>
 </template>
 
 <script>
+
+ 
 
 
 import {
