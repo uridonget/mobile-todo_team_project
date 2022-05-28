@@ -59,7 +59,7 @@ export default {
     type: "month",
     types: ["month", "week", "day"],
     mode: "stack",
-    weekday: [0,1, 2, 3, 4, 5, 6,],
+    weekday: [0, 1, 2, 3, 4, 5, 6],
     weekdays: [{ text: "Mon - Sun", value: [1, 2, 3, 4, 5, 6, 0] }],
     focus: "",
     events: [],

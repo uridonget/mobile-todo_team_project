@@ -1,5 +1,5 @@
 <template>
-  <v-main >
+  <v-main>
     <v-container>
       <h2 color="#4caf50">Login</h2>
 
@@ -31,26 +31,18 @@
     <v-spacer></v-spacer>
     <br />
     <v-card>
-      <v-img 
-      src="https://c.tenor.com/-fW-Mhg-baoAAAAi/shark-swim.gif">
-    </v-img></v-card>
+      <v-img src="https://c.tenor.com/-fW-Mhg-baoAAAAi/shark-swim.gif"> </v-img
+    ></v-card>
   </v-main>
 </template>
 
 <script>
-
- 
-
-
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
-
-
-
 
 export default {
   data() {

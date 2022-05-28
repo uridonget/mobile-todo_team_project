@@ -34,7 +34,7 @@
         >
           <v-expansion-panel-header>
             <v-col cols="2">
-              <v-btn icon @click="getFixed(todoItem, index)" color='green'>
+              <v-btn icon @click="getFixed(todoItem, index)" color="green">
                 <v-icon>mdi-pin</v-icon>
               </v-btn>
             </v-col>

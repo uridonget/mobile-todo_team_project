@@ -11,10 +11,12 @@
     "core-js": "^3.8.3",
     "firebase": "^9.8.1",
     "register-service-worker": "^1.7.2",
+    "splash": "^0.3.0",
     "vue": "^2.6.14",
     "vue-gifplayer": "^1.0.2",
     "vue-picture-input": "^2.4.0",
     "vue-router": "^3.5.4",
+    "vue-splash": "^1.2.1",
     "vue-video-player": "^5.0.2",
     "vuetify": "^2.6.0"
   },

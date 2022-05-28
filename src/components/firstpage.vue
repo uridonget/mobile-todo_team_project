@@ -30,7 +30,7 @@
             <v-icon x-large> mdi-logout </v-icon></v-btn
           >
         </v-row>
-        <v-btn @click ='alarm'>진동</v-btn>
+        <v-btn @click="alarm">진동</v-btn>
         <v-row>
           <v-col>
             <v-toolbar-title>Just Do it! </v-toolbar-title>
@@ -213,9 +213,10 @@ export default {
           console.error(error);
         });
     },
-    alarm (){
-      console.log('hi')
-    navigator.vibrate([2000, 500, 2000, 500])}
+    alarm() {
+      console.log("hi");
+      navigator.vibrate([2000, 500, 2000, 500]);
+    },
   },
   created() {
     console.log("1");

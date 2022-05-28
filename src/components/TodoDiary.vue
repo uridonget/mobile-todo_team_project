@@ -1,24 +1,23 @@
 <template>
   <v-container>
-
     <v-row>
       <v-btn icon class="ma-3" @click="goback">
         <v-icon x-large>mdi-chevron-left</v-icon>
       </v-btn>
-      <br/><br/>
+      <br /><br />
     </v-row>
-    <br/><br/>
+    <br /><br />
     <v-spacer></v-spacer>
     <v-row>
       <v-card>
         <v-img :src="imageURL" width="500" height="300"> </v-img>
       </v-card>
-      
     </v-row>
-    <br/><br/>
+    <br /><br />
     <v-row>
-      
-      <v-btn right absolute outlined color ='#4caf50' @click="goUpload"> 사진 업로드 </v-btn>
+      <v-btn right absolute outlined color="#4caf50" @click="goUpload">
+        사진 업로드
+      </v-btn>
     </v-row>
     <!-- <v-row>
       <picture-input 
@@ -36,8 +35,8 @@
         }">
       </picture-input>
     </v-row> -->
-    <br/><br/><br/><br/>
-    <v-row>     
+    <br /><br /><br /><br />
+    <v-row>
       <v-textarea
         v-model="diary"
         placeholder=""
