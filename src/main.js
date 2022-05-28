@@ -8,6 +8,7 @@ import VueSplash from 'vue-splash'
 
 
 Vue.config.productionTip = false
+Vue.use(VueSplash);
 
 new Vue({
   VueSplash,

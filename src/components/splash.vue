@@ -1,20 +1,17 @@
 <template>
-<v-app>
   <vue-splash
     :show="true"
     :logo="logo"
-    title="Welcome"
     color="#F29661"
-    :size="500"
+    :size="300"
     :fixed="true"
   ><h2>fdfdfdf</h2>
   </vue-splash>
-  
-</v-app>
 </template>
 
 <script>
-import YourLogo from "/src/assets/logo.png";
+// import YourLogo from "/src/assets/logo.png";
+import YourLogo from "@/assets/sharksplash.png";
 
 export default {
   name: "splash",

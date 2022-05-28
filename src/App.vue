@@ -1,12 +1,13 @@
 <template>
-  <div id="app">
+  
     <v-app v-if="!isLoaded">
       <splash></splash>
     </v-app>
+
     <v-app v-else>
       <router-view></router-view>
     </v-app>
-  </div>
+  
 </template>
 
 <script>
@@ -29,7 +30,7 @@ export default {
       setTimeout(() => {
         this.isLoaded = true;
         console.log("hihi");
-      }, 7500);
+      }, 2500);
     },
   },
 };
