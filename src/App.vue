@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app v-if="!isLoaded">
-      <splash-component></splash-component>
+      <splash></splash>
     </v-app>
     <v-app v-else>
       <router-view></router-view>
