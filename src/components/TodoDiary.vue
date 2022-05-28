@@ -1,22 +1,24 @@
 <template>
   <v-container>
+
     <v-row>
-       <v-btn icon class="ma-3" @click="goback">
-          <v-icon x-large>mdi-chevron-left</v-icon>
-        </v-btn>
+      <v-btn icon class="ma-3" @click="goback">
+        <v-icon x-large>mdi-chevron-left</v-icon>
+      </v-btn>
+      <br/><br/>
     </v-row>
+    <br/><br/>
+    <v-spacer></v-spacer>
     <v-row>
       <v-card>
-        <v-img :src=imageURL
-        width="400"
-        height="300">
-        </v-img>
+        <v-img :src="imageURL" width="500" height="300"> </v-img>
       </v-card>
+      
     </v-row>
+    <br/><br/>
     <v-row>
-      <v-btn @click="goUpload">
-        사진 업로드
-      </v-btn>
+      
+      <v-btn right absolute outlined color ='#4caf50' @click="goUpload"> 사진 업로드 </v-btn>
     </v-row>
     <!-- <v-row>
       <picture-input 
@@ -34,17 +36,20 @@
         }">
       </picture-input>
     </v-row> -->
-    <v-row>
-    <v-textarea
-      v-model="diary"
-      placeholder=""
-      v-on:keyup.enter="addDiary"
-      outlined color ='green'
-      label="일기작성"
-      height="100"
-    ></v-textarea>
+    <br/><br/><br/><br/>
+    <v-row>     
+      <v-textarea
+        v-model="diary"
+        placeholder=""
+        v-on:keyup.enter="addDiary"
+        outlined
+        color="#4caf50"
+        label="일기작성"
+        height="100"
+      ></v-textarea>
     </v-row>
-    <v-btn @click="addDiary">
+    <v-spacer></v-spacer>
+    <v-btn right absolute outlined color="#4caf50" @click="addDiary">
       일기 저장
     </v-btn>
     <!-- <v-card>
@@ -59,21 +64,15 @@
       </v-img>
       
     </v-card> -->
-
-    
-    
-
   </v-container>
 </template>
 
 <script>
-
 import { getDatabase, ref, set, child, get } from "firebase/database";
-import { getStorage, uploadString, getDownloadURL} from "firebase/storage";
-import {ref as storageRef} from "firebase/storage";
+import { getStorage, uploadString, getDownloadURL } from "firebase/storage";
+import { ref as storageRef } from "firebase/storage";
 
-import PictureInput from 'vue-picture-input'
-
+import PictureInput from "vue-picture-input";
 
 export default {
   data() {
@@ -82,130 +81,166 @@ export default {
       image: null,
       photoNum: null,
       imageURL: null,
-      
-      
-      
-      
-      
     };
   },
-  components:{
-    PictureInput
+  components: {
+    PictureInput,
   },
 
   methods: {
-
-    getSrc(imageURL){
-      return  require(imageURL)
-
+    getSrc(imageURL) {
+      return require(imageURL);
     },
 
-    showImg(){
+    showImg() {
       const storage = getStorage();
       const userinfo = JSON.parse(localStorage.getItem("userInfo"));
-      const focus = localStorage.getItem("focusedDate")
+      const focus = localStorage.getItem("focusedDate");
       // const stRef = storageRef(storage, 'users/' + userinfo.uid + '/' + focus)
-      getDownloadURL(storageRef(storage, 'users/' + userinfo.uid + '/' + focus))
-        .then((url) => {
-          console.log(url)
-          this.imageURL = url
-        })
-
-
+      getDownloadURL(
+        storageRef(storage, "users/" + userinfo.uid + "/" + focus)
+      ).then((url) => {
+        console.log(url);
+        this.imageURL = url;
+      });
     },
 
-    onChange(image){
-      console.log("새 사진입니다.")
-      if(image) {
-        console.log('Picture loaded')
-        this.image = image
-        console.log(typeof(image))
-      } else{
-        console.log("File not supported")
+    onChange(image) {
+      console.log("새 사진입니다.");
+      if (image) {
+        console.log("Picture loaded");
+        this.image = image;
+        console.log(typeof image);
+      } else {
+        console.log("File not supported");
       }
-
     },
-    
-    goback(){
-      console.log("뒤로가기")
+
+    goback() {
+      console.log("뒤로가기");
       localStorage.removeItem("focusedDate");
       this.$router.replace("caldiary");
     },
 
-    goUpload(){      
+    goUpload() {
       this.$router.replace("goUpload");
     },
 
-    addDiary(){
+    addDiary() {
       this.photoUpload();
       const db = getDatabase();
       const userinfo = JSON.parse(localStorage.getItem("userInfo"));
-      set(ref(db, 'users/' + userinfo.uid + '/Diary/' + localStorage.getItem("focusedDate") + '/DiaryTxt'), {
-        diary :this.diary,
-      });
-      console.log('넘버 뭐냐',this.num)
+      set(
+        ref(
+          db,
+          "users/" +
+            userinfo.uid +
+            "/Diary/" +
+            localStorage.getItem("focusedDate") +
+            "/DiaryTxt"
+        ),
+        {
+          diary: this.diary,
+        }
+      );
+      console.log("넘버 뭐냐", this.num);
       // 사진있다
-      if(this.num === 1){
-        console.log("넘버가 1일 때 실행")
-        set(ref(db, 'users/' + userinfo.uid + '/Diary/' + localStorage.getItem("focusedDate") + '/photoExist'), {
-          photoExist: 1,
-        })
-        this.num = 0
-        this.showImg()
+      if (this.num === 1) {
+        console.log("넘버가 1일 때 실행");
+        set(
+          ref(
+            db,
+            "users/" +
+              userinfo.uid +
+              "/Diary/" +
+              localStorage.getItem("focusedDate") +
+              "/photoExist"
+          ),
+          {
+            photoExist: 1,
+          }
+        );
+        this.num = 0;
+        this.showImg();
       }
       // if(this.num = 0){
-        else{
-        console.log("넘버가 0일 때 실행")
-        set(ref(db, 'users/' + userinfo.uid + '/Diary/' + localStorage.getItem("focusedDate") + '/photoExist'), {
-          photoExist: 0,
-        })
+      else {
+        console.log("넘버가 0일 때 실행");
+        set(
+          ref(
+            db,
+            "users/" +
+              userinfo.uid +
+              "/Diary/" +
+              localStorage.getItem("focusedDate") +
+              "/photoExist"
+          ),
+          {
+            photoExist: 0,
+          }
+        );
       }
-    
-
     },
-    photoUpload(){
-      if(this.image != null){
-        console.log("돌을 던져")
+    photoUpload() {
+      if (this.image != null) {
+        console.log("돌을 던져");
         const storage = getStorage();
         const userinfo = JSON.parse(localStorage.getItem("userInfo"));
-        const focus = localStorage.getItem("focusedDate")
-        const stRef = storageRef(storage, 'users/' + userinfo.uid + '/' + focus);
+        const focus = localStorage.getItem("focusedDate");
+        const stRef = storageRef(
+          storage,
+          "users/" + userinfo.uid + "/" + focus
+        );
         // const stRef = storageRef(storage, '/image')
         const imgFile = this.image;
-        uploadString(stRef, imgFile, 'data_url').then((snapshot) => {
-          console.log('Uploaded a data_url string!')
+        uploadString(stRef, imgFile, "data_url").then((snapshot) => {
+          console.log("Uploaded a data_url string!");
         });
         this.num = 1;
-      }else{
+      } else {
         this.num = 0;
-        console.log("사진없어용")
+        console.log("사진없어용");
       }
-    }
-
+    },
   },
 
   created() {
     this.num = 0;
     const userinfo = JSON.parse(localStorage.getItem("userInfo"));
     const dbRef = ref(getDatabase());
-    get(child(dbRef, `users/` + userinfo.uid + '/Diary/' + localStorage.getItem("focusedDate") + '/DiaryTxt'))
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          // console.log(data.diary)
-          this.diary = data.diary
-        }
-      })
-    get(child(dbRef, `users/` + userinfo.uid + '/Diary/' + localStorage.getItem("focusedDate") + '/photoExist'))
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          this.photoNum = data.photoExist
-          console.log('이거야?',this.photoNum)
-        }
-      })
-    this.showImg()
-    },
+    get(
+      child(
+        dbRef,
+        `users/` +
+          userinfo.uid +
+          "/Diary/" +
+          localStorage.getItem("focusedDate") +
+          "/DiaryTxt"
+      )
+    ).then((snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        // console.log(data.diary)
+        this.diary = data.diary;
+      }
+    });
+    get(
+      child(
+        dbRef,
+        `users/` +
+          userinfo.uid +
+          "/Diary/" +
+          localStorage.getItem("focusedDate") +
+          "/photoExist"
+      )
+    ).then((snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        this.photoNum = data.photoExist;
+        console.log("이거야?", this.photoNum);
+      }
+    });
+    this.showImg();
+  },
 };
-
 </script>
