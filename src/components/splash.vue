@@ -2,10 +2,10 @@
   <vue-splash
     :show="true"
     :logo="logo"
-    color="#F29661"
+    color="#4caf50"
     :size="300"
     :fixed="true"
-  ><h2>fdfdfdf</h2>
+  >
   </vue-splash>
 </template>
 
