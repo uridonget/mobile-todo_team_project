@@ -13,13 +13,14 @@
         <v-btn icon class="ma-3" @click="goBack">
           <v-icon x-large>mdi-chevron-left</v-icon>
         </v-btn>
-        <h2> {{ dateString }}</h2></v-row
-      >
+      </v-row>
       <v-spacer></v-spacer>
       <v-row>
         <v-btn icon class="ma-3" @click="$refs.calendar.prev()">
           <v-icon large>mdi-chevron-left</v-icon>
         </v-btn><v-spacer></v-spacer>
+        <h2 class="ma-3"> {{ dateString }} </h2>
+        <v-spacer></v-spacer>
         <v-btn icon class="ma-3" @click="$refs.calendar.next()">
           <v-icon x-large>mdi-chevron-right</v-icon>
         </v-btn>
