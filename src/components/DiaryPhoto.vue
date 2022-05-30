@@ -121,7 +121,7 @@ export default {
         this.num = 0;
         console.log("사진없어용")
       }
-    this.$router.replace("goDiary");
+    // this.$router.replace("goDiary");
     }
 
   },
