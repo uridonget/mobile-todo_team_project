@@ -1,42 +1,34 @@
 <template>
   <div>
-    <br />
-    <v-sheet tile height="54" class="d-flex">
+    <v-app-bar
+      app
+      color="green"
+      dark
+      hide-on-scroll
+      prominent
+      scroll-target="#scrolling-techniques-10"
+      height="130"
+    ><v-col>
       <v-row>
         <v-btn icon class="ma-3" @click="goBack">
           <v-icon x-large>mdi-chevron-left</v-icon>
         </v-btn>
-        <!-- <v-select
-          v-model="type"
-          :items="types"
-          dense
-          outlined
-          full-width="False"
-          hide-details
-          class="ma-2"
-          label="type"
-        ></v-select>
-        <v-spacer></v-spacer>
-        <v-btn icon class="ma-2" @click="$refs.calendar.next()">
-          <v-icon>mdi-chevron-right</v-icon>
-        </v-btn> -->
-
-        <v-spacer></v-spacer>
-
-        <h2>오늘은 {{ dateString }}</h2>
-        <v-spacer></v-spacer>
+        <h2> {{ dateString }}</h2></v-row
+      >
+      <v-spacer></v-spacer>
+      <v-row>
         <v-btn icon class="ma-3" @click="$refs.calendar.prev()">
           <v-icon large>mdi-chevron-left</v-icon>
-        </v-btn>
+        </v-btn><v-spacer></v-spacer>
         <v-btn icon class="ma-3" @click="$refs.calendar.next()">
           <v-icon x-large>mdi-chevron-right</v-icon>
         </v-btn>
-      </v-row>
-    </v-sheet>
-    <!-- <br /><br />
-    <br /><br /> -->
+      </v-row></v-col>
+    </v-app-bar>
+     <br /><br />
+    <br /><br /> <br/><br/>
 
-    <v-sheet height="600">
+    <v-sheet height="550">
       <v-calendar
         ref="calendar"
         color="#4caf50"

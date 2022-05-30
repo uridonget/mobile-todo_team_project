@@ -30,7 +30,7 @@
             <v-icon x-large> mdi-logout </v-icon></v-btn
           >
         </v-row>
-        
+
         <v-row>
           <v-col>
             <v-toolbar-title>Just Do it! </v-toolbar-title>
@@ -62,18 +62,25 @@
       <TodoFooter v-on:removeAll="clearAll" />
     </v-footer>
     <!--  -->
-          <modal v-if="showModal" @close="showModal = false">
-        <h3 slot="header">알람</h3>
-        <span slot="footer" @click="showModal = false"
-          > <v-card
-          v-for="(todoItem) in noTimeItems"
-          :key="todoItem">
-          {{ todoItem.title }}
-          D-{{ (Math.floor((new Date(todoItem.date).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) + 1) }}
-          </v-card>
-          <i class="closeModalBtn fas fa-times" aria-hidden="true"></i>
-        </span>
-      </modal>
+    <modal v-if="showModal" @close="showModal = false">
+      <h3 slot="header">알람</h3>
+      <span slot="footer" @click="showModal = false">
+        <v-card-actions v-for="todoItem in noTimeItems" :key="todoItem">
+          <v-card outlined width="40">
+            D-{{
+              Math.floor(
+                (new Date(todoItem.date).getTime() - new Date().getTime()) /
+                  (1000 * 60 * 60 * 24)
+              ) + 1
+            }}</v-card
+          >
+          <v-spacer></v-spacer>
+          <v-card outlined width="80"> {{ todoItem.title }}</v-card
+          ><v-spacer></v-spacer>
+        </v-card-actions>
+        <i class="closeModalBtn fas fa-times" aria-hidden="true"></i>
+      </span>
+    </modal>
     <!--  -->
   </v-app>
 </template>
@@ -108,10 +115,7 @@ export default {
   }),
   mounted() {
     this.alarm();
-    
   },
-
-  
 
   methods: {
     caldiary() {
@@ -217,18 +221,25 @@ export default {
             const dataNum = Object.keys(data).length;
             for (var i = 0; i < dataNum; i++) {
               this.todoItems.push(Object.values(data)[i].todoItem);
-              console.log('todoItems 생성과정 :',this.todoItems)
-              console.log(this.todoItems.length)
-              console.log(this.todoItems[i])
-              if( (Math.floor((new Date(this.todoItems[i].date).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) + 1) < 3){
-              this.noTimeItems.push(this.todoItems[i])
+              console.log("todoItems 생성과정 :", this.todoItems);
+              console.log(this.todoItems.length);
+              console.log(this.todoItems[i]);
+              if (
+                Math.floor(
+                  (new Date(this.todoItems[i].date).getTime() -
+                    new Date().getTime()) /
+                    (1000 * 60 * 60 * 24)
+                ) +
+                  1 <
+                3
+              ) {
+                this.noTimeItems.push(this.todoItems[i]);
               }
-              console.log('noTime length : ',this.noTimeItems.length)
-              if(this.noTimeItems.length > 0){
+              console.log("noTime length : ", this.noTimeItems.length);
+              if (this.noTimeItems.length > 0) {
                 navigator.vibrate([2000, 500, 2000, 500]);
-                this.showModal=!this.showModal
+                this.showModal = !this.showModal;
               }
-
             }
           } else {
             console.log("No data available");
@@ -243,7 +254,7 @@ export default {
     //   console.log('todoItems: ',this.todoItems)
     //   console.log('type of todoItems: ', typeof(this.todoItems))
     //   console.log('todoItems.length: ', this.todoItems.length)
-      
+
     //   for (var i = 0; i < this.todoItems.length; i++){
     //     if( (Math.floor((new Date(this.todoItems[i].date).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) + 1) < 3){
     //       this.noTimeItems.push(this.todoItems[i])
@@ -255,14 +266,11 @@ export default {
     //     this.showModal=!this.showModal
     //   }
     // },
-
-
   },
   created() {
     console.log("1");
     this.userLogin();
-    console.log('this.noTimeItems : ',this.noTimeItems)
-
+    console.log("this.noTimeItems : ", this.noTimeItems);
   },
 };
 </script>
