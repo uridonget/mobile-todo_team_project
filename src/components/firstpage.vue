@@ -75,7 +75,7 @@
             }}</v-card
           >
           <v-spacer></v-spacer>
-          <v-card outlined width="80"> {{ todoItem.title }}</v-card
+          <v-card outlined width="150"> {{ todoItem.title }}</v-card
           ><v-spacer></v-spacer>
         </v-card-actions>
         <i class="closeModalBtn fas fa-times" aria-hidden="true"></i>
@@ -231,7 +231,7 @@ export default {
                     (1000 * 60 * 60 * 24)
                 ) +
                   1 <
-                3
+                4
               ) {
                 this.noTimeItems.push(this.todoItems[i]);
               }
