@@ -30,7 +30,7 @@
             <v-icon x-large> mdi-logout </v-icon></v-btn
           >
         </v-row>
-        <v-btn @click="alarm">진동</v-btn>
+        
         <v-row>
           <v-col>
             <v-toolbar-title>Just Do it! </v-toolbar-title>
@@ -61,6 +61,20 @@
     <v-footer color="white">
       <TodoFooter v-on:removeAll="clearAll" />
     </v-footer>
+    <!--  -->
+          <modal v-if="showModal" @close="showModal = false">
+        <h3 slot="header">알람</h3>
+        <span slot="footer" @click="showModal = false"
+          > <v-card
+          v-for="(todoItem) in noTimeItems"
+          :key="todoItem">
+          {{ todoItem.title }}
+          D-{{ (Math.floor((new Date(todoItem.date).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) + 1) }}
+          </v-card>
+          <i class="closeModalBtn fas fa-times" aria-hidden="true"></i>
+        </span>
+      </modal>
+    <!--  -->
   </v-app>
 </template>
 
@@ -70,6 +84,7 @@ import TodoList from "./TodoList.vue";
 import TodoInput from "./TodoInput.vue";
 import { getDatabase, ref, set, child, get } from "firebase/database";
 import { getAuth, signOut } from "firebase/auth";
+import Modal from "./common/AlertModal.vue";
 
 export default {
   name: "App",
@@ -78,6 +93,7 @@ export default {
     TodoList,
     TodoFooter,
     TodoInput,
+    Modal: Modal,
   },
 
   data: () => ({
@@ -85,20 +101,17 @@ export default {
     search: null,
     drawer: null,
     todoItems: [],
+    noTimeItems: [],
+    showModal: false,
     // userInfo: null,
     statuses: ["할 일", "진행 중", "완료"],
-    items: [
-      {
-        action: "mdi-ticket",
-        items: [{ title: "List item" }],
-        title: "Attractions",
-      },
-    ],
   }),
   mounted() {
-    console.log(this.$firebase);
-    console.log("3");
+    this.alarm();
+    
   },
+
+  
 
   methods: {
     caldiary() {
@@ -204,6 +217,18 @@ export default {
             const dataNum = Object.keys(data).length;
             for (var i = 0; i < dataNum; i++) {
               this.todoItems.push(Object.values(data)[i].todoItem);
+              console.log('todoItems 생성과정 :',this.todoItems)
+              console.log(this.todoItems.length)
+              console.log(this.todoItems[i])
+              if( (Math.floor((new Date(this.todoItems[i].date).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) + 1) < 3){
+              this.noTimeItems.push(this.todoItems[i])
+              }
+              console.log('noTime length : ',this.noTimeItems.length)
+              if(this.noTimeItems.length > 0){
+                navigator.vibrate([2000, 500, 2000, 500]);
+                this.showModal=!this.showModal
+              }
+
             }
           } else {
             console.log("No data available");
@@ -213,25 +238,31 @@ export default {
           console.error(error);
         });
     },
-    alarm() {
-      console.log("hi");
-      navigator.vibrate([2000, 500, 2000, 500]);
-    },
+
+    // alarm() {
+    //   console.log('todoItems: ',this.todoItems)
+    //   console.log('type of todoItems: ', typeof(this.todoItems))
+    //   console.log('todoItems.length: ', this.todoItems.length)
+      
+    //   for (var i = 0; i < this.todoItems.length; i++){
+    //     if( (Math.floor((new Date(this.todoItems[i].date).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) + 1) < 3){
+    //       this.noTimeItems.push(this.todoItems[i])
+    //     }
+    //   }
+    //   console.log('noTimeItems',this.noTimeItems)
+    //   if(this.noTimeItems.length > 0){
+    //     navigator.vibrate([2000, 500, 2000, 500]);
+    //     this.showModal=!this.showModal
+    //   }
+    // },
+
+
   },
   created() {
     console.log("1");
     this.userLogin();
-    // const userinfo = JSON.parse(localStorage.getItem('userInfo'))
-    // console.log(userinfo.uid)
-    // let year = today.getFullYear();
-    // console.log(year)
-    // if (localStorage.length > 0) {
-    //   for (var i = 0; i < localStorage.length; i++) {
-    //     this.todoItems.push(
-    //       JSON.parse(localStorage.getItem(localStorage.key(i)))
-    //     );
-    //   }
-    // }
+    console.log('this.noTimeItems : ',this.noTimeItems)
+
   },
 };
 </script>
