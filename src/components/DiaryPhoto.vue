@@ -1,10 +1,11 @@
 <template>
   <v-container>
     <v-row>
-      <v-btn @click="goback">
-        뒤로가기
+      <v-btn icon class="ma-3" @click="goback">
+          <v-icon x-large>mdi-chevron-left</v-icon>
       </v-btn>
-    </v-row>
+      <br/><br/><v-spacer></v-spacer>
+    </v-row><v-col>
       <picture-input 
         ref="pictureInput" 
         @change="onChange"
@@ -18,10 +19,13 @@
         :customStrings="{
           upload: '<h1>Bummer!</h1>',
         }">
+        
       </picture-input>
-    <v-btn @click="photoUpload">
+      <br/>
+    <v-btn right absolute outlined color ='#4caf50' @click="photoUpload">
       사진 업로드
     </v-btn>
+    </v-col>
   </v-container>
 </template>
 
