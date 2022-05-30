@@ -236,10 +236,10 @@ export default {
                 this.noTimeItems.push(this.todoItems[i]);
               }
               console.log("noTime length : ", this.noTimeItems.length);
-              if (this.noTimeItems.length > 0) {
-                navigator.vibrate([2000, 500, 2000, 500]);
-                this.showModal = !this.showModal;
-              }
+            }
+            if (this.noTimeItems.length > 0) {
+              navigator.vibrate([2000, 500, 2000, 500]);
+              this.showModal = !this.showModal;
             }
           } else {
             console.log("No data available");
